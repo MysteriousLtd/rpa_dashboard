@@ -52,15 +52,15 @@ function Tables() {
                       Order Name
                     </SoftTypography>
                   </SoftBox>
-                  <SoftInput type="number" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                  <SoftInput type="number" onChange={(e) => setPassword(e.target.value)} placeholder="Order Name" />
                 </SoftBox>
                 <SoftBox mb={2}>
                   <SoftBox mb={1} ml={0.5}>
                     <SoftTypography component="label" variant="caption" fontWeight="bold" >
-                      Order Period
+                      Order Period (in days)
                     </SoftTypography>
                   </SoftBox>
-                  <SoftInput type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                  <SoftInput type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Order Period" />
                 </SoftBox>
                 
                 <SoftBox mt={4} mb={1}>

@@ -15,7 +15,7 @@ Coded by www.creative-tim.com
 
 // @mui material components
 import Card from "@mui/material/Card";
-
+import axios from "axios";
 // Mysterious Tech Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
@@ -31,11 +31,30 @@ import Table from "examples/Tables/Table";
 // Data
 import authorsTableData from "layouts/tables/data/authorsTableData";
 // import projectsTableData from "layouts/tables/data/projectsTableData";
-
+import { useState } from "react";
 function Tables() {
   const { columns, rows } = authorsTableData;
+  const [orderno, setOrderno] = useState('')
+  const [orderp, setOrderp] = useState('')
   // const { columns: prCols, rows: prRows } = projectsTableData;
+  const placeOrder = async () => {
 
+    const article = {
+      "ClientID": "Client_Sofabed",
+      "OrderNumber": orderno,
+      "OrderPeriod": orderp,
+      "OrderCreatedBy": "TEST"
+    };
+    const headers = { 
+        // 'Authorization': 'Bearer my-token',
+        'content-type': 'application/json'
+    };
+    axios.post('http://34.235.34.12:7001', article, { headers })
+        .then(response => console.log({ msgId: response.data })).catch(error => {
+            // this.setState({ errorMessage: error.message });
+            console.error('There was an error!', error);
+        });
+  }
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -52,7 +71,7 @@ function Tables() {
                       Order Name
                     </SoftTypography>
                   </SoftBox>
-                  <SoftInput type="number" onChange={(e) => setPassword(e.target.value)} placeholder="Order Name" />
+                  <SoftInput type="text" onChange={(e) => setOrderno(e.target.value)} placeholder="Order Name" />
                 </SoftBox>
                 <SoftBox mb={2}>
                   <SoftBox mb={1} ml={0.5}>
@@ -60,11 +79,11 @@ function Tables() {
                       Order Period (in days)
                     </SoftTypography>
                   </SoftBox>
-                  <SoftInput type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Order Period" />
+                  <SoftInput type="text" onChange={(e) => setOrderp(e.target.value)} placeholder="Order Period" />
                 </SoftBox>
-                
+
                 <SoftBox mt={4} mb={1}>
-                  <SoftButton variant="gradient" color="dark" fullWidth >
+                  <SoftButton variant="gradient" color="dark" fullWidth onClick={placeOrder}>
                     Place Order
                   </SoftButton>
                 </SoftBox>
@@ -78,10 +97,6 @@ function Tables() {
 
       <SoftBox py={3}>
         <SoftBox mb={3}>
-
-
-
-
           <Card>
             <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
               <SoftTypography variant="h6">Orders table</SoftTypography>
@@ -100,11 +115,6 @@ function Tables() {
             </SoftBox>
           </Card>
         </SoftBox>
-
-
-
-
-
 
         {/* <Card>
           <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>

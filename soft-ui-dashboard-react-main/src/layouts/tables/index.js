@@ -31,37 +31,50 @@ import Table from "examples/Tables/Table";
 // Data
 import authorsTableData from "layouts/tables/data/authorsTableData";
 // import projectsTableData from "layouts/tables/data/projectsTableData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch , useSelector} from "react-redux";
+import { fetchTableData , postOrder } from "../../store/TableSlice";
+
 function Tables() {
   const { columns, rows } = authorsTableData;
-  const [orderno, setOrderno] = useState('')
-  const [orderp, setOrderp] = useState('')
+  const [orderno, setOrderno] = useState('');
+  const [orderp, setOrderp] = useState('');
+  const table=useSelector(state=>state.table.tableData)
   // const { columns: prCols, rows: prRows } = projectsTableData;
-  const placeOrder = async () => {
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(fetchTableData())
+    console.log(table)
+  },[])
 
+  const placeOrder = async () => {
     const article = {
       "ClientID": "Client_Sofabed",
       "OrderNumber": orderno,
       "OrderPeriod": orderp,
       "OrderCreatedBy": "TEST"
     };
-    const headers = { 
-        // 'Authorization': 'Bearer my-token',
-        'content-type': 'application/json'
-    };
-    axios.post('http://34.235.34.12:7001', article, { headers })
-        .then(response => console.log({ msgId: response.data })).catch(error => {
-            // this.setState({ errorMessage: error.message });
-            console.error('There was an error!', error);
-        });
+    dispatch(postOrder(article))
+
+    // const headers = { 
+    //     'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJhZG1pbiIsImlhdCI6MTY3NzI2MDYzOCwiZXhwIjoxNjc3MjY0MjM4fQ.2k3DXrUW0EhTXnWMIVcSd8EbxtYCcCV3ejFQimpoTlA',
+    //     'content-type': 'application/json'
+    // };
+
+    // await axios.post('http://34.235.34.12:7001/api/v1/orders/guardian', article, { headers })
+    //     .then(response => console.log({ msgId: response.data })).catch(error => {
+    //         // this.setState({ errorMessage: error.message });
+    //         console.error('There was an error!', error);
+    //     });
+
+    setOrderno('');
+    setOrderp('');
   }
   return (
     <DashboardLayout>
       <DashboardNavbar />
-
       <SoftBox py={3}>
         <SoftBox mb={3}>
-
           <Card>
             <SoftBox pt={4} pb={3} px={3}>
               <SoftBox component="form" role="form" >
@@ -71,7 +84,7 @@ function Tables() {
                       Order Name
                     </SoftTypography>
                   </SoftBox>
-                  <SoftInput type="text" onChange={(e) => setOrderno(e.target.value)} placeholder="Order Name" />
+                  <SoftInput type="text" value={orderno} onChange={(e) => setOrderno(e.target.value)} placeholder="Order Name" />
                 </SoftBox>
                 <SoftBox mb={2}>
                   <SoftBox mb={1} ml={0.5}>
@@ -79,11 +92,11 @@ function Tables() {
                       Order Period (in days)
                     </SoftTypography>
                   </SoftBox>
-                  <SoftInput type="text" onChange={(e) => setOrderp(e.target.value)} placeholder="Order Period" />
+                  <SoftInput type="text" value={orderp} onChange={(e) => setOrderp(e.target.value)} placeholder="Order Period" />
                 </SoftBox>
 
                 <SoftBox mt={4} mb={1}>
-                  <SoftButton variant="gradient" color="dark" fullWidth onClick={placeOrder}>
+                  <SoftButton variant="gradient" color="dark" fullWidth onClick={placeOrder} disabled={(orderno === "" || orderp === '')}>
                     Place Order
                   </SoftButton>
                 </SoftBox>

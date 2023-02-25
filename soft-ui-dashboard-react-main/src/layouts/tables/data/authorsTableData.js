@@ -70,14 +70,14 @@ const authorsTableData = {
     {
       number: <Author image={team2} name="ORDER001" email="john@creative-tim.com" />,
       period: <Function job="40" org="days" />,
-      status: (
-        <SoftBadge variant="gradient" badgeContent="online" color="success" size="xs" container />
-      ),
+      status: <SoftBadge variant="gradient" badgeContent="online" color="success" size="xs" container />
+      ,
       creator: (
         <SoftTypography variant="caption" color="secondary" fontWeight="medium">
           John Doe
         </SoftTypography>
-      ),
+        )
+      ,
       timestamp: (
         <TimeStamp date='27 Feb 2023' time='23:00' />
       ),

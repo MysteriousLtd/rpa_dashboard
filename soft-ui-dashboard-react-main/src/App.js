@@ -49,6 +49,7 @@ import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from "contex
 // Images
 import brand from "assets/images/logo-ct.png";
 import SignIn from "layouts/authentication/sign-in";
+import SignUp from "layouts/authentication/sign-up";
 import Dashboard from "layouts/dashboard";
 
 export default function App() {
@@ -147,7 +148,7 @@ export default function App() {
               color={sidenavColor}
               brand={brand}
               brandName="Dashboard"
-              routes={routes}
+              routes={routes.slice(0,2)}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
             />
@@ -157,9 +158,10 @@ export default function App() {
         )}
         {layout === "vr" && <Configurator />}
         <Routes>
-          {getRoutes(routes)}
+          {getRoutes(routes.slice(0,2))}
           {isLoggedIn && <Route path="*" element={<Navigate to="/dashboard" />} />}
         </Routes>
+
       </ThemeProvider>
     </CacheProvider>
   ) : (
@@ -171,7 +173,7 @@ export default function App() {
             color={sidenavColor}
             brand={brand}
             brandName="Dashboard"
-            routes={routes}
+            routes={routes.slice(0,2)}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
@@ -181,11 +183,13 @@ export default function App() {
       )}
       {layout === "vr" && <Configurator />}
       <Routes>
-        {isLoggedIn? getRoutes(routes.slice(0,7)): getRoutes(routes.slice(7)) }
-        { !isLoggedIn? 
-        <Route path='*' element={<SignIn />} /> 
+        {isLoggedIn? getRoutes(routes.slice(0,2)): getRoutes(routes.slice(2)) }
+        { !isLoggedIn? <>
+                <Route path='*' element={<Navigate to='/authentication/sign-in'/>} /> 
+                <Route path='/authentication/sign-up' element={<SignUp />} />
+        </>
         :
-          <Route path='*' element={<Dashboard />} /> 
+          <Route path='*' element={<Navigate to='/dashboard' />} /> 
         }
       </Routes>
     </ThemeProvider>

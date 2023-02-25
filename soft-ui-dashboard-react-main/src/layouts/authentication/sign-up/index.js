@@ -51,7 +51,32 @@ function SignUp() {
   const [isCorrPC, setisCorrPC] = useState(null)
   const handleSetAgremment = () => setAgremment(!agreement);
   const PASSCODE= useSelector(state => state.loginState.passcode)
-  console.log(PASSCODE)
+  const signUp=(e) => {
+    if(passcode===PASSCODE){
+       createUserWithEmailAndPassword(auth, email, password)
+    // returns  an auth object after a successful authentication
+    // userAuth.user contains all our user details
+      .then((userAuth) => {
+      // store the user's information in the redux state
+        dispatch(
+          loginActions.LogIn({
+            email: userAuth.user.email,
+            uid: userAuth.user.uid,
+            displayName: name,
+            photoUrl: userAuth.user.photoURL,
+          })
+        );
+      })
+// display the error if any
+      .catch((err) => {
+        alert(err);
+      });
+      setisCorrPC(true)
+    }
+    else{
+      setisCorrPC(false)
+    }
+  }
 
   return (
     <BasicLayout
@@ -106,33 +131,7 @@ function SignUp() {
               </SoftTypography>
             </SoftBox>
             <SoftBox mt={4} mb={1}>
-              <SoftButton  variant="gradient" color="dark" fullWidth onClick={(e) => {
-                if(passcode===PASSCODE){
-                   createUserWithEmailAndPassword(auth, email, password)
-                // returns  an auth object after a successful authentication
-                // userAuth.user contains all our user details
-                  .then((userAuth) => {
-                  // store the user's information in the redux state
-                    dispatch(
-                      loginActions.LogIn({
-                        email: userAuth.user.email,
-                        uid: userAuth.user.uid,
-                        displayName: name,
-                        photoUrl: userAuth.user.photoURL,
-                      })
-                    );
-                  })
-            // display the error if any
-                  .catch((err) => {
-                    alert(err);
-                  });
-                  setisCorrPC(true)
-                }
-                else{
-                  setisCorrPC(false)
-                }
-              }
-          }>
+              <SoftButton  variant="gradient" color="dark" fullWidth onClick={signUp}>
                 sign up
               </SoftButton>
             </SoftBox>

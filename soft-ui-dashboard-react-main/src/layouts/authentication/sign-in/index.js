@@ -41,7 +41,27 @@ function SignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
-
+  const signIn=() => {
+    // Sign in an existing user with Firebase
+    signInWithEmailAndPassword(auth, email, password)
+      // returns  an auth object after a successful authentication
+      // userAuth.user contains all our user details
+      .then((userAuth) => {
+        // store the user's information in the redux state
+        dispatch(
+          loginActions.LogIn({
+            email: userAuth.user.email,
+            uid: userAuth.user.uid,
+            displayName: userAuth.user.displayName,
+            photoUrl: userAuth.user.photoURL,
+          })
+        );
+      })
+      // display the error if any
+      .catch((err) => {
+        alert(err);
+      });
+  }
   
   return (
     <CoverLayout
@@ -79,31 +99,7 @@ function SignIn() {
         </SoftBox>
         <SoftBox mt={4} mb={1}>
           <SoftButton variant="gradient" color="info" fullWidth
-            onClick={() => {
-              // Sign in an existing user with Firebase
-              signInWithEmailAndPassword(auth, email, password)
-                // returns  an auth object after a successful authentication
-                // userAuth.user contains all our user details
-                .then((userAuth) => {
-                  // store the user's information in the redux state
-                  dispatch(
-                    loginActions.LogIn({
-                      email: userAuth.user.email,
-                      uid: userAuth.user.uid,
-                      displayName: userAuth.user.displayName,
-                      photoUrl: userAuth.user.photoURL,
-                    })
-                  );
-                })
-                // display the error if any
-                .catch((err) => {
-                  alert(err);
-                });
-
-
-            }}
-
-          >
+            onClick={signIn}>
             sign in
           </SoftButton>
         </SoftBox>

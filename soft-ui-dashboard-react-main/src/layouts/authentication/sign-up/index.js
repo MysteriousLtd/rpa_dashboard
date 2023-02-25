@@ -19,8 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { loginActions } from "../../../store/LogSlice";
-import {auth} from '../../../firebase'
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {auth,  createUserWithEmailAndPassword , updateProfile} from '../../../firebase'
 
 
 // @mui material components
@@ -51,13 +50,15 @@ function SignUp() {
   const [isCorrPC, setisCorrPC] = useState(null)
   const handleSetAgremment = () => setAgremment(!agreement);
   const PASSCODE= useSelector(state => state.loginState.passcode)
+  const user=useSelector(state => state.loginState.user)
   const signUp=(e) => {
     if(passcode===PASSCODE){
        createUserWithEmailAndPassword(auth, email, password)
     // returns  an auth object after a successful authentication
     // userAuth.user contains all our user details
       .then((userAuth) => {
-      // store the user's information in the redux state
+        updateProfile(userAuth.user, {displayName:name}).then(() =>
+        // store the user's information in the redux state
         dispatch(
           loginActions.LogIn({
             email: userAuth.user.email,
@@ -65,7 +66,9 @@ function SignUp() {
             displayName: name,
             photoUrl: userAuth.user.photoURL,
           })
-        );
+
+        ))
+      
       })
 // display the error if any
       .catch((err) => {

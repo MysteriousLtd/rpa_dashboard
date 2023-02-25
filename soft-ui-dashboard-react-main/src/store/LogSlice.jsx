@@ -9,12 +9,13 @@ const logSlice = createSlice({
         passcode:'test'
     },
     reducers: {
-        UserExists(state){
-            state.isLoggedIn = true;
-        },
+        // UserExists(state){
+        //     state.isLoggedIn = true;
+        // },
         LogIn(state,action){
             state.isLoggedIn=true
             state.user=action.payload;
+            console.log(state.user)
         },
         SignOut(state) {
             state.isLoggedIn=false

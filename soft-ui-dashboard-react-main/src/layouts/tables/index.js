@@ -15,44 +15,163 @@ Coded by www.creative-tim.com
 
 // @mui material components
 import Card from "@mui/material/Card";
-import axios from "axios";
+import Icon from "@mui/material/Icon";
 // Mysterious Tech Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftButton from "components/SoftButton";
 import SoftInput from "components/SoftInput";
+import SoftBadge from "components/SoftBadge";
+
 
 // Mysterious Tech Dashboard React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import Table from "examples/Tables/Table";
+import PropTypes from 'prop-types'
 
 // Data
-import authorsTableData from "layouts/tables/data/authorsTableData";
+// import authorsTableData from "layouts/tables/data/authorsTableData";
 // import projectsTableData from "layouts/tables/data/projectsTableData";
 import { useState, useEffect } from "react";
 import { useDispatch , useSelector} from "react-redux";
 import { fetchTableData , postOrder } from "../../store/TableSlice";
 
+
+function OrderNumber({  number, email }) {
+  return (
+    <SoftBox display="flex" alignItems="center" px={1} py={0.5}>
+      {/* <SoftBox mr={2}>
+        <SoftAvatar src={image} alt={name} size="sm" variant="rounded" />
+      </SoftBox> */}
+      <SoftBox display="flex" flexDirection="column">
+        <SoftTypography variant="button" fontWeight="medium">
+          {number}
+        </SoftTypography>
+        {/* <SoftTypography variant="caption" color="secondary">
+          {email}
+        </SoftTypography> */}
+      </SoftBox>
+    </SoftBox>
+  );
+}
+
+OrderNumber.propTypes={
+  number: PropTypes.string,
+  email:PropTypes.string
+}
+
+function Period({ period }) {
+  return (
+    <SoftBox display="flex" flexDirection="column">
+      <SoftTypography variant="caption" fontWeight="medium" color="text">
+        {period} &nbsp;
+        <SoftTypography variant="caption" color="secondary">
+          days
+        </SoftTypography>
+      </SoftTypography>
+
+    </SoftBox>
+  );
+}
+Period.propTypes={
+  period: PropTypes.string
+}
+
+function TimeStamp({ date, time }) {
+  return (
+    <SoftBox display="flex" flexDirection="column" px={1} py={0}>
+      <SoftTypography variant="caption" fontWeight="medium" color="text">
+        {date}
+      </SoftTypography>
+      <SoftTypography variant="caption" color="secondary">
+          {time}
+        </SoftTypography>
+    </SoftBox>
+  );
+}
+TimeStamp.propTypes={
+  date:PropTypes.string,
+  time: PropTypes.string
+}
+
+
 function Tables() {
-  const { columns, rows } = authorsTableData;
+  const table=useSelector(state=>state.table.tableData)
+
   const [orderno, setOrderno] = useState('');
   const [orderp, setOrderp] = useState('');
-  const table=useSelector(state=>state.table.tableData)
+  const user=useSelector(state=> state.loginState.user)
+  // const table=useSelector(state=>state.table.tableData)
   // const { columns: prCols, rows: prRows } = projectsTableData;
   const dispatch = useDispatch();
+  const isPosted=useSelector(state=> state.table.isPosted)
   useEffect(()=>{
     dispatch(fetchTableData())
-    console.log(table)
-  },[])
+  },[isPosted])
+
+  const authorsTableData = {
+    columns: [
+      { name: "number", align: "left" },
+      { name: "period", align: "left" },
+      { name: "status", align: "center" },
+      { name: "creator", align: "center" },
+      { name: "timestamp", align: "center" },
+    ],
+  
+    rows: table.map((row)=>
+    { 
+      let date=new Date(row.ordercreatedtime)
+      return {
+        'number': <OrderNumber number={row.ordernumber} email="john@creative-tim.com" />,
+        'period': <Period period={row.orderperiod} />,
+        'status': <SoftBadge variant="gradient" badgeContent={row.orderstatus} color="success" size="xs" container />
+        ,
+        'creator': (
+          <SoftTypography variant="caption" color="secondary" fontWeight="medium">
+            {row.ordercreatedby}
+          </SoftTypography>
+          )
+        ,
+        'timestamp': (
+          <TimeStamp date={date.toLocaleDateString()} time={date.toLocaleTimeString()} />
+        ),
+      //   '': <SoftBox
+      //   display="flex"
+      //   alignItems="center"
+      //   mt={{ xs: 2, sm: 0 }}
+      //   ml={{ xs: -1.5, sm: 0 }}>
+      //   <SoftBox mr={1}>
+      //     <SoftButton variant="text" color="error">
+      //       <Icon>{edit ? 'cancel' : 'delete'}</Icon>&nbsp;{edit ? 'cancel' : 'delete'}
+      //     </SoftButton>
+      //   </SoftBox>
+      //   <SoftButton variant="text" color="dark"
+      //     onClick={() => {
+      //       setEdit(!edit)
+      //     }}>
+      //     <Icon>{edit ? 'update' : 'edit'}</Icon>&nbsp;{edit ? 'update' : 'edit'}
+      //   </SoftButton>
+
+
+      // </SoftBox>
+      }
+    }
+    
+    )
+    
+      };
+
+      const { columns, rows } = authorsTableData;
+
 
   const placeOrder = async () => {
     const article = {
       "ClientID": "Client_Sofabed",
       "OrderNumber": orderno,
       "OrderPeriod": orderp,
-      "OrderCreatedBy": "TEST"
+      "OrderCreatedBy": `${user.displayName}`
     };
     dispatch(postOrder(article))
 
@@ -92,7 +211,7 @@ function Tables() {
                       Order Period (in days)
                     </SoftTypography>
                   </SoftBox>
-                  <SoftInput type="text" value={orderp} onChange={(e) => setOrderp(e.target.value)} placeholder="Order Period" />
+                  <SoftInput type="number" value={orderp} onChange={(e) => setOrderp(e.target.value)} placeholder="Order Period" />
                 </SoftBox>
 
                 <SoftBox mt={4} mb={1}>

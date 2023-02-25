@@ -27,10 +27,10 @@ import SoftButton from "components/SoftButton";
 import SoftInput from "components/SoftInput";
 
 function Bill({ name, company, email, vat, noGutter }) {
-  const [companyS,setCompany]=useState(company)
-  const [emailS, setEmail]=useState(email)
-  const [vatS, setVat]=useState(vat)
-  const [edit,setEdit]=useState(false)
+  const [companyS, setCompany] = useState(company)
+  const [emailS, setEmail] = useState(email)
+  const [vatS, setVat] = useState(vat)
+  const [edit, setEdit] = useState(false)
   return (
     <SoftBox
       component="li"
@@ -59,33 +59,32 @@ function Bill({ name, company, email, vat, noGutter }) {
             display="flex"
             alignItems="center"
             mt={{ xs: 2, sm: 0 }}
-            ml={{ xs: -1.5, sm: 0 }}
-          >
+            ml={{ xs: -1.5, sm: 0 }}>
             <SoftBox mr={1}>
-            <SoftButton variant="text" color="error">
-            <Icon>{edit?'cancel':'delete'}</Icon>&nbsp;{edit?'cancel':'delete'}
-          </SoftButton>
-              
+              <SoftButton variant="text" color="error">
+                <Icon>{edit ? 'cancel' : 'delete'}</Icon>&nbsp;{edit ? 'cancel' : 'delete'}
+              </SoftButton>
+
             </SoftBox>
 
-            
+
             <SoftButton variant="text" color="dark"
-            onClick={()=>{
-              setEdit(!edit)}}
-          >
-            <Icon>{edit?'update':'edit'}</Icon>&nbsp;{edit?'update':'edit'}
-          </SoftButton>
-            
-            
+              onClick={() => {
+                setEdit(!edit)
+              }}>
+              <Icon>{edit ? 'update' : 'edit'}</Icon>&nbsp;{edit ? 'update' : 'edit'}
+            </SoftButton>
+
+
           </SoftBox>
         </SoftBox>
         <SoftBox mb={1} lineHeight={0}>
           <SoftTypography variant="caption" color="text">
             Company Name:&nbsp;&nbsp;&nbsp;
             <SoftTypography variant="caption" fontWeight="medium" textTransform="capitalize">
-              {edit?<SoftBox mb={1}>
-              <SoftInput onChange={(e) => setCompany(e.target.value)} type="email" value={companyS} />
-            </SoftBox>:`${companyS}`}
+              {edit ? <SoftBox mb={1}>
+                <SoftInput onChange={(e) => setCompany(e.target.value)} type="email" value={companyS} />
+              </SoftBox> : `${companyS}`}
             </SoftTypography>
           </SoftTypography>
         </SoftBox>
@@ -93,18 +92,18 @@ function Bill({ name, company, email, vat, noGutter }) {
           <SoftTypography variant="caption" color="text">
             Email Address:&nbsp;&nbsp;&nbsp;
             <SoftTypography variant="caption" fontWeight="medium">
-            {edit?<SoftBox mb={1}>
-              <SoftInput onChange={(e) => setEmail(e.target.value)} type="email" value={emailS} />
-            </SoftBox>:`${emailS}`}
+              {edit ? <SoftBox mb={1}>
+                <SoftInput onChange={(e) => setEmail(e.target.value)} type="email" value={emailS} />
+              </SoftBox> : `${emailS}`}
             </SoftTypography>
           </SoftTypography>
         </SoftBox>
         <SoftTypography variant="caption" color="text">
           VAT Number:&nbsp;&nbsp;&nbsp;
           <SoftTypography variant="caption" fontWeight="medium">
-          {edit?<SoftBox mb={1}>
+            {edit ? <SoftBox mb={1}>
               <SoftInput onChange={(e) => setVat(e.target.value)} type="email" value={vatS} />
-            </SoftBox>:`${vatS}`}
+            </SoftBox> : `${vatS}`}
           </SoftTypography>
         </SoftTypography>
       </SoftBox>

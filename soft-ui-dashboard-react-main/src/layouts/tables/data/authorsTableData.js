@@ -2,86 +2,16 @@
 // Mysterious Tech Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
-import SoftAvatar from "components/SoftAvatar";
-import SoftBadge from "components/SoftBadge";
+// import SoftAvatar from "components/SoftAvatar";
+
 
 // Images
-import team2 from "assets/images/team-2.jpg";
-import team3 from "assets/images/team-3.jpg";
-import team4 from "assets/images/team-4.jpg";
+// import team2 from "assets/images/team-2.jpg";
+// import team3 from "assets/images/team-3.jpg";
+// import team4 from "assets/images/team-4.jpg";
+import { useSelector } from "react-redux";
 
-function Author({ image, name, email }) {
-  return (
-    <SoftBox display="flex" alignItems="center" px={1} py={0.5}>
-      {/* <SoftBox mr={2}>
-        <SoftAvatar src={image} alt={name} size="sm" variant="rounded" />
-      </SoftBox> */}
-      <SoftBox display="flex" flexDirection="column">
-        <SoftTypography variant="button" fontWeight="medium">
-          {name}
-        </SoftTypography>
-        {/* <SoftTypography variant="caption" color="secondary">
-          {email}
-        </SoftTypography> */}
-      </SoftBox>
-    </SoftBox>
-  );
-}
 
-function Function({ job, org }) {
-  return (
-    <SoftBox display="flex" flexDirection="column">
-      <SoftTypography variant="caption" fontWeight="medium" color="text">
-        {job} &nbsp;
-        <SoftTypography variant="caption" color="secondary">
-          {org}
-        </SoftTypography>
-      </SoftTypography>
-
-    </SoftBox>
-  );
-}
-
-function TimeStamp({ date, time }) {
-  return (
-    <SoftBox display="flex" flexDirection="column" px={1} py={0}>
-      <SoftTypography variant="caption" fontWeight="medium" color="text">
-        {date}
-        
-      </SoftTypography>
-      <SoftTypography variant="caption" color="secondary">
-          {time}
-        </SoftTypography>
-
-    </SoftBox>
-  );
-}
-
-const authorsTableData = {
-  columns: [
-    { name: "number", align: "left" },
-    { name: "period", align: "left" },
-    { name: "status", align: "center" },
-    { name: "creator", align: "center" },
-    { name: "timestamp", align: "center" },
-  ],
-
-  rows: [
-    {
-      number: <Author image={team2} name="ORDER001" email="john@creative-tim.com" />,
-      period: <Function job="40" org="days" />,
-      status: <SoftBadge variant="gradient" badgeContent="online" color="success" size="xs" container />
-      ,
-      creator: (
-        <SoftTypography variant="caption" color="secondary" fontWeight="medium">
-          John Doe
-        </SoftTypography>
-        )
-      ,
-      timestamp: (
-        <TimeStamp date='27 Feb 2023' time='23:00' />
-      ),
-    },
     // {
     //   author: <Author image={team3} name="Alexa Liras" email="alexa@creative-tim.com" />,
     //   function: <Function job="Programator" org="Developer" />,
@@ -197,7 +127,7 @@ const authorsTableData = {
     //     </SoftTypography>
     //   ),
     // },
-  ],
-};
+  
+
 
 export default authorsTableData;

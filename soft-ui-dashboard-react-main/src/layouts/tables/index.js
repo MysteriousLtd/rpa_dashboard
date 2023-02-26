@@ -99,9 +99,11 @@ TimeStamp.propTypes={
 
 function Tables() {
   const table=useSelector(state=>state.table.tableData)
-
+  const [edit, setEdit]=useState(false)
   const [orderno, setOrderno] = useState('');
   const [orderp, setOrderp] = useState('');
+  const [torderno, setTOrderno] = useState('');
+  const [torderp, setTOrderp] = useState('');
   const user=useSelector(state=> state.loginState.user)
   // const table=useSelector(state=>state.table.tableData)
   // const { columns: prCols, rows: prRows } = projectsTableData;
@@ -116,19 +118,38 @@ function Tables() {
       { name: "number", align: "left" },
       { name: "period", align: "left" },
       { name: "status", align: "center" },
-      { name: "creator", align: "center" },
+      { name: "remark", align: "center" },
+      { name: "created by", align: "center" },
       { name: "timestamp", align: "center" },
+      // { name: "", align: "center" },
+      
     ],
   
     rows: table.map((row)=>
     { 
+      
       let date=new Date(row.ordercreatedtime)
+      useEffect(()=>{
+        setTOrderno(row.ordernumber);
+        setTOrderp(row.orderperiod)
+      },[row,edit])
+        
+      
       return {
-        'number': <OrderNumber number={row.ordernumber} email="john@creative-tim.com" />,
-        'period': <Period period={row.orderperiod} />,
+        'number': !edit?<OrderNumber number={row.ordernumber}  />:(<SoftBox mb={1}>
+        <SoftInput onChange={(e) => setTOrderno(e.target.value)} type="text" value={torderno} />
+      </SoftBox>),
+        'period': !edit?<Period period={row.orderperiod} />:(<SoftBox mb={1}>
+        <SoftInput onChange={(e) => setTOrderp(e.target.value)} type="number" value={torderp} />
+      </SoftBox>),
         'status': <SoftBadge variant="gradient" badgeContent={row.orderstatus} color="success" size="xs" container />
         ,
-        'creator': (
+        'remark':(
+          <SoftTypography variant="caption" color="secondary" fontWeight="small">
+            {row.orderremark}
+          </SoftTypography>
+          ),
+        'created by': (
           <SoftTypography variant="caption" color="secondary" fontWeight="medium">
             {row.ordercreatedby}
           </SoftTypography>
@@ -137,25 +158,28 @@ function Tables() {
         'timestamp': (
           <TimeStamp date={date.toLocaleDateString()} time={date.toLocaleTimeString()} />
         ),
-      //   '': <SoftBox
-      //   display="flex"
-      //   alignItems="center"
-      //   mt={{ xs: 2, sm: 0 }}
-      //   ml={{ xs: -1.5, sm: 0 }}>
-      //   <SoftBox mr={1}>
-      //     <SoftButton variant="text" color="error">
-      //       <Icon>{edit ? 'cancel' : 'delete'}</Icon>&nbsp;{edit ? 'cancel' : 'delete'}
-      //     </SoftButton>
-      //   </SoftBox>
-      //   <SoftButton variant="text" color="dark"
-      //     onClick={() => {
-      //       setEdit(!edit)
-      //     }}>
-      //     <Icon>{edit ? 'update' : 'edit'}</Icon>&nbsp;{edit ? 'update' : 'edit'}
-      //   </SoftButton>
+    //     '':( <SoftBox
+    //     display="flex"
+    //     alignItems="center"
+    //     mt={{ xs: 2, sm: 0 }}
+    //     ml={{ xs: -1.5, sm: 0 }}>
+    //     <SoftBox mr={1}>
+    //       <SoftButton variant="text" color="error"
+    //       onClick={()=>{
+    //         edit?setEdit(false):{/* to-do dispatch delete request */}
+    //       }}>
+    //         <Icon>{edit ? 'cancel' : ''}</Icon>
+    //       </SoftButton>
+    //     </SoftBox>
+    //     <SoftButton variant="text" color="dark"
+    //       onClick={() => {
+    //         setEdit(!edit)
+    //       }}>
+    //       <Icon>{edit ? 'update' : 'edit'}</Icon>
+    //     </SoftButton>
 
 
-      // </SoftBox>
+    //   </SoftBox>)
       }
     }
     

@@ -12,12 +12,20 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"client_id\":\"admin\",\r\n    \"client_secret\":\"admin\",\r\n    \"project_id\":\"admin\"\r\n}"
+					"raw": "{\r\n    \"client_id\":\"admin\",\r\n    \"client_secret\":\"admin\",\r\n    \"project_id\":\"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
-					"raw": "localhost:7001/api/v1/auth",
+					"raw": "34.235.34.12:7001/api/v1/auth",
 					"host": [
-						"localhost"
+						"34",
+						"235",
+						"34",
+						"12"
 					],
 					"port": "7001",
 					"path": [
@@ -56,26 +64,13 @@
 			]
 		},
 		{
-			"name": "Get Guardians Orders",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"name": "Put Guardians Orders",
 			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJhZG1pbiIsImlhdCI6MTY3NzE3ODAyNywiZXhwIjoxNjc3MTgxNjI3fQ.JJhWg8HU3Ma6laRJ3wbyMznHHkSbMyQ3oWn8gHex0s4",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
+				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"ClientID\":\"Client_Sofabed\"\r\n}",
+					"raw": "{\r\n    \"OrderNumber\":\"6\",\r\n    \"OrderPeriod\":\"TEST\",\r\n    \"OrderModifiedBy\":\"TEST\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -83,9 +78,197 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:7001/api/v1/orders/guardian",
+					"raw": "34.235.34.12:7001/api/v1/orders/guardian/Client_Sofabed/7",
 					"host": [
-						"localhost"
+						"34",
+						"235",
+						"34",
+						"12"
+					],
+					"port": "7001",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"guardian",
+						"Client_Sofabed",
+						"7"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Default",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/test",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"test"
+							]
+						}
+					},
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Del Guardians Orders",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"OrderModifiedBy\":\"TESTDel\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "34.235.34.12:7001/api/v1/orders/guardian/Client_Sofabed/6",
+					"host": [
+						"34",
+						"235",
+						"34",
+						"12"
+					],
+					"port": "7001",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"guardian",
+						"Client_Sofabed",
+						"6"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Default",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/test",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"test"
+							]
+						}
+					},
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Get Guardians Orders",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "34.235.34.12:7001/api/v1/orders/guardian/Client_Sofabed",
+					"host": [
+						"34",
+						"235",
+						"34",
+						"12"
+					],
+					"port": "7001",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"guardian",
+						"Client_Sofabed"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Default",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/test",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"test"
+							]
+						}
+					},
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Add Guardians Orders",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ClientID\":\"Client_Sofabed\",\r\n    \"OrderNumber\":\"TEST3\",\r\n    \"OrderPeriod\":\"TEST\",\r\n    \"OrderCreatedBy\":\"TEST\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "34.235.34.12:7001/api/v1/orders/guardian",
+					"host": [
+						"34",
+						"235",
+						"34",
+						"12"
 					],
 					"port": "7001",
 					"path": [
@@ -125,13 +308,26 @@
 			]
 		},
 		{
-			"name": "Add Guardians Orders",
+			"name": "Get Product Inventory",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "POST",
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJhZG1pbiIsImlhdCI6MTY3NzE3ODAyNywiZXhwIjoxNjc3MTgxNjI3fQ.JJhWg8HU3Ma6laRJ3wbyMznHHkSbMyQ3oWn8gHex0s4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"ClientID\":\"Client_Sofabed\",\r\n    \"OrderNumber\":\"TEST\",\r\n    \"OrderPeriod\":\"TEST\",\r\n    \"OrderCreatedBy\":\"TEST\"\r\n\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -139,16 +335,89 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:7001/api/v1/orders/guardian",
+					"raw": "34.235.34.12:7001/api/v1/inventory/products/Client_Jennifer",
 					"host": [
-						"localhost"
+						"34",
+						"235",
+						"34",
+						"12"
 					],
 					"port": "7001",
 					"path": [
 						"api",
 						"v1",
-						"orders",
-						"guardian"
+						"inventory",
+						"products",
+						"Client_Jennifer"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Default",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/test",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"test"
+							]
+						}
+					},
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Put Product Inventory",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJhZG1pbiIsImlhdCI6MTY3NzE3ODAyNywiZXhwIjoxNjc3MTgxNjI3fQ.JJhWg8HU3Ma6laRJ3wbyMznHHkSbMyQ3oWn8gHex0s4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ClientID\": \"Client_Sofabed\",\r\n    \"productsku\": \"Delt-D/Open+MAX-Rene03-234/9-CR\",\r\n    \"vendorname\": \"Delta Full XL Sectional Sleeper with LHF Chaise\",\r\n    \"vendorsku\": \"Rene 03\",\r\n    \"modified_by\": \"ManualX\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "34.235.34.12:7001/api/v1/inventory/products",
+					"host": [
+						"34",
+						"235",
+						"34",
+						"12"
+					],
+					"port": "7001",
+					"path": [
+						"api",
+						"v1",
+						"inventory",
+						"products"
 					]
 				}
 			},

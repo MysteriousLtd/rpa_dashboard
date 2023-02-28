@@ -34,12 +34,12 @@ import PropTypes from 'prop-types'
 // Data
 // import authorsTableData from "layouts/tables/data/authorsTableData";
 // import projectsTableData from "layouts/tables/data/projectsTableData";
-import { useState, useEffect } from "react";
-import { useDispatch , useSelector} from "react-redux";
-import { fetchTableData , postOrder } from "../../store/TableSlice";
+import { useState, useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTableData, postOrder, updateOrder } from "../../store/TableSlice";
 
 
-function OrderNumber({  number, email }) {
+function OrderNumber({ number }) {
   return (
     <SoftBox display="flex" alignItems="center" px={1} py={0.5}>
       {/* <SoftBox mr={2}>
@@ -57,9 +57,9 @@ function OrderNumber({  number, email }) {
   );
 }
 
-OrderNumber.propTypes={
+OrderNumber.propTypes = {
   number: PropTypes.string,
-  email:PropTypes.string
+  //  email:PropTypes.string
 }
 
 function Period({ period }) {
@@ -71,11 +71,10 @@ function Period({ period }) {
           days
         </SoftTypography>
       </SoftTypography>
-
     </SoftBox>
   );
 }
-Period.propTypes={
+Period.propTypes = {
   period: PropTypes.string
 }
 
@@ -86,34 +85,36 @@ function TimeStamp({ date, time }) {
         {date}
       </SoftTypography>
       <SoftTypography variant="caption" color="secondary">
-          {time}
-        </SoftTypography>
+        {time}
+      </SoftTypography>
     </SoftBox>
   );
 }
-TimeStamp.propTypes={
-  date:PropTypes.string,
+TimeStamp.propTypes = {
+  date: PropTypes.string,
   time: PropTypes.string
 }
 
 
 function Tables() {
-  const table=useSelector(state=>state.table.tableData)
-  const [edit, setEdit]=useState(false)
+  const table = useSelector(state => state.table.tableData)
+  const [edit, setEdit] = useState(false)
   const [orderno, setOrderno] = useState('');
   const [orderp, setOrderp] = useState('');
   const [torderno, setTOrderno] = useState('');
   const [torderp, setTOrderp] = useState('');
-  const user=useSelector(state=> state.loginState.user)
+  const [eIndex, setEIndex] = useState(null);
+  const user = useSelector(state => state.loginState.user)
+
   // const table=useSelector(state=>state.table.tableData)
   // const { columns: prCols, rows: prRows } = projectsTableData;
   const dispatch = useDispatch();
-  const isPosted=useSelector(state=> state.table.isPosted)
-  useEffect(()=>{
+  const isPosted = useSelector(state => state.table.isPosted)
+  useEffect(() => {
     dispatch(fetchTableData())
-  },[isPosted])
+  }, [isPosted])
 
-  const authorsTableData = {
+  const ordersTableData = {
     columns: [
       { name: "number", align: "left" },
       { name: "period", align: "left" },
@@ -121,73 +122,87 @@ function Tables() {
       { name: "remark", align: "center" },
       { name: "created by", align: "center" },
       { name: "timestamp", align: "center" },
-      // { name: "", align: "center" },
-      
+      { name: "", align: "center" },
+
     ],
-  
-    rows: table.map((row)=>
-    { 
-      
-      let date=new Date(row.ordercreatedtime)
-      useEffect(()=>{
-        setTOrderno(row.ordernumber);
-        setTOrderp(row.orderperiod)
-      },[row,edit])
-        
-      
+
+    rows:table !== null ?  table.map((row, index) => {
+      let date = new Date(row.ordercreatedtime)
       return {
-        'number': !edit?<OrderNumber number={row.ordernumber}  />:(<SoftBox mb={1}>
-        <SoftInput onChange={(e) => setTOrderno(e.target.value)} type="text" value={torderno} />
-      </SoftBox>),
-        'period': !edit?<Period period={row.orderperiod} />:(<SoftBox mb={1}>
-        <SoftInput onChange={(e) => setTOrderp(e.target.value)} type="number" value={torderp} />
-      </SoftBox>),
+        'number': (eIndex !== null && index === eIndex) ? (<SoftBox mb={1}>
+          
+            <SoftInput type="text" value={torderno} onChange={(e) =>{setTOrderno(e.target.value); console.log(torderno); }}  />
+          
+        </SoftBox>) : <OrderNumber number={row.ordernumber} />,
+        'period': (eIndex !== null && index === eIndex) ? (<SoftBox mb={1}>
+          
+            <SoftInput onChange={(e) => setTOrderp(e.target.value)} type="number" value={torderp} />
+          
+        </SoftBox>) : <Period period={row.orderperiod} />,
         'status': <SoftBadge variant="gradient" badgeContent={row.orderstatus} color="success" size="xs" container />
         ,
-        'remark':(
-          <SoftTypography variant="caption" color="secondary" fontWeight="small">
+        'remark': (
+          <SoftTypography variant="caption" color="secondary" fontWeight="light">
+            {/* [false,"light","regular","medium","bold"] */}
             {row.orderremark}
           </SoftTypography>
-          ),
+        ),
         'created by': (
           <SoftTypography variant="caption" color="secondary" fontWeight="medium">
             {row.ordercreatedby}
           </SoftTypography>
-          )
+        )
         ,
         'timestamp': (
           <TimeStamp date={date.toLocaleDateString()} time={date.toLocaleTimeString()} />
         ),
-    //     '':( <SoftBox
-    //     display="flex"
-    //     alignItems="center"
-    //     mt={{ xs: 2, sm: 0 }}
-    //     ml={{ xs: -1.5, sm: 0 }}>
-    //     <SoftBox mr={1}>
-    //       <SoftButton variant="text" color="error"
-    //       onClick={()=>{
-    //         edit?setEdit(false):{/* to-do dispatch delete request */}
-    //       }}>
-    //         <Icon>{edit ? 'cancel' : ''}</Icon>
-    //       </SoftButton>
-    //     </SoftBox>
-    //     <SoftButton variant="text" color="dark"
-    //       onClick={() => {
-    //         setEdit(!edit)
-    //       }}>
-    //       <Icon>{edit ? 'update' : 'edit'}</Icon>
-    //     </SoftButton>
+        '': (<SoftBox
+          display="flex"
+          alignItems="center"
+          mt={{ xs: 2, sm: 0 }}
+          ml={{ xs: -1.5, sm: 0 }}>
+
+          {eIndex === index && (<SoftBox mr={1}><SoftButton variant="text" color="error"
+            onClick={() => {
+              setEdit(false)
+              setEIndex(null)
+                setTOrderno('');
+                setTOrderp(null);
+            }}>
+            <Icon> cancel </Icon>
+          </SoftButton></SoftBox>)}
+
+          <SoftButton variant="text" color="dark"
+            onClick={() => {
+
+              if (edit) {
+                setEdit(false)
+                setEIndex(null)
+                setTOrderno('');
+                setTOrderp(null);
+                console.log(row[eIndex].ordernumber, torderno)
+                // dispatch(updateOrder({}))
+              }
+              else {
+                setEdit(true)
+                setEIndex(index)
+                setTOrderno(row.ordernumber);
+                setTOrderp(row.orderperiod)
+              }
+
+            }}>
+            <Icon>{eIndex === index ? 'update' : 'edit'}</Icon>
+          </SoftButton>
 
 
-    //   </SoftBox>)
+        </SoftBox>)
       }
     }
+    ): [{}]
     
-    )
-    
-      };
+  };
 
-      const { columns, rows } = authorsTableData;
+  const { columns, rows } = ordersTableData;
 
 
   const placeOrder = async () => {
@@ -198,18 +213,6 @@ function Tables() {
       "OrderCreatedBy": `${user.displayName}`
     };
     dispatch(postOrder(article))
-
-    // const headers = { 
-    //     'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJhZG1pbiIsImlhdCI6MTY3NzI2MDYzOCwiZXhwIjoxNjc3MjY0MjM4fQ.2k3DXrUW0EhTXnWMIVcSd8EbxtYCcCV3ejFQimpoTlA',
-    //     'content-type': 'application/json'
-    // };
-
-    // await axios.post('http://34.235.34.12:7001/api/v1/orders/guardian', article, { headers })
-    //     .then(response => console.log({ msgId: response.data })).catch(error => {
-    //         // this.setState({ errorMessage: error.message });
-    //         console.error('There was an error!', error);
-    //     });
-
     setOrderno('');
     setOrderp('');
   }
@@ -267,7 +270,7 @@ function Tables() {
                 },
               }}
             >
-              <Table columns={columns} rows={rows} />
+              <Table columns={columns} rows={rows} edit={edit} />
             </SoftBox>
           </Card>
         </SoftBox>

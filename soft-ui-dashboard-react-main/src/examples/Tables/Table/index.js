@@ -29,7 +29,7 @@ import TableRow from "@mui/material/TableRow";
 
 // Mysterious Tech Dashboard React components
 import SoftBox from "components/SoftBox";
-import SoftAvatar from "components/SoftAvatar";
+// import SoftAvatar from "components/SoftAvatar";
 import SoftTypography from "components/SoftTypography";
 
 // Mysterious Tech Dashboard React base styles
@@ -37,12 +37,12 @@ import colors from "assets/theme/base/colors";
 import typography from "assets/theme/base/typography";
 import borders from "assets/theme/base/borders";
 
-function Table({ columns, rows }) {
+function Table({ columns, rows, edit }) {
   const { light } = colors;
   const { size, fontWeightBold } = typography;
   const { borderWidth } = borders;
 
-  const renderColumns = columns.map(({ name, align, width }, key) => {
+  const renderColumns = useMemo(()=>columns.map(({ name, align, width }, key) => {
     let pl;
     let pr;
 
@@ -76,9 +76,10 @@ function Table({ columns, rows }) {
         {name.toUpperCase()}
       </SoftBox>
     );
-  });
+  }),[edit])
+  ;
 
-  const renderRows = rows.map((row, key) => {
+  const renderRows = useMemo(()=>rows.map((row, key) => {
     const rowKey = `row-${key}`;
 
     const tableRow = columns.map(({ name, align }) => {
@@ -92,10 +93,10 @@ function Table({ columns, rows }) {
             p={1}
             borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
           >
-            <SoftBox display="flex" alignItems="center" py={0.5} px={1}>
-              <SoftBox mr={2}>
+            <SoftBox text={'center'} py={0.5} px={1}>
+              {/* <SoftBox mr={2}>
                 <SoftAvatar src={row[name][0]} name={row[name][1]} variant="rounded" size="sm" />
-              </SoftBox>
+              </SoftBox> */}
               <SoftTypography variant="button" fontWeight="medium" sx={{ width: "max-content" }}>
                 {row[name][1]}
               </SoftTypography>
@@ -127,7 +128,7 @@ function Table({ columns, rows }) {
     });
 
     return <TableRow key={rowKey}>{tableRow}</TableRow>;
-  });
+  }),[edit]);
 
   return useMemo(
     () => (
@@ -136,13 +137,13 @@ function Table({ columns, rows }) {
           <SoftBox component="thead">
             <TableRow>{renderColumns}</TableRow>
           </SoftBox>
-          <TableBody>{renderRows}</TableBody>
+         {rows!==[{}] && <TableBody>{renderRows}</TableBody>}
         </MuiTable>
       </TableContainer>
     ),
     [columns, rows]
-  );
-}
+  )
+    }
 
 // Setting default values for the props of Table
 Table.defaultProps = {

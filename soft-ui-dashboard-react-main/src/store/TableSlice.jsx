@@ -23,6 +23,15 @@ export const fetchTableData = createAsyncThunk(
     }
 )
 
+export const updateOrder = createAsyncThunk(
+    'table/updateOrder',
+    async({orderno,updateOrder})=>{
+        await axios.put(`http://34.235.34.12:7001/api/v1/orders/guardian/${orderno}`, updateOrder, {
+            headers: {'Content-Type': 'application/json'}
+        })
+    }
+)
+
 export const postOrder = createAsyncThunk(
     'table/postOrder',
     async(order)=>{
@@ -56,6 +65,13 @@ extraReducers(builder){
             state.isPosted=true
         })
         builder.addCase(postOrder.rejected, (state,action)=>{
+            action.payload?state.error=action.payload:state
+        })
+        builder.addCase(updateOrder.fulfilled, (state,action)=>{
+            state.success=action.payload;
+            state.isPosted=true
+        })
+        builder.addCase(updateOrder.rejected, (state,action)=>{
             action.payload?state.error=action.payload:state
         })
     },

@@ -15,7 +15,7 @@ const logSlice = createSlice({
         LogIn(state,action){
             state.isLoggedIn=true
             state.user=action.payload;
-            console.log(state.user)
+            // console.log(state.user)
         },
         SignOut(state) {
             state.isLoggedIn=false

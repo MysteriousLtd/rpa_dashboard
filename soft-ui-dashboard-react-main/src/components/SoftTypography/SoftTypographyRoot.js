@@ -20,7 +20,6 @@ import { styled } from "@mui/material/styles";
 export default styled(Typography)(({ theme, ownerState }) => {
   const { palette, typography, functions } = theme;
   const { color, textTransform, verticalAlign, fontWeight, opacity, textGradient } = ownerState;
-
   const { gradients, transparent } = palette;
   const { fontWeightLight, fontWeightRegular, fontWeightMedium, fontWeightBold } = typography;
   const { linearGradient } = functions;

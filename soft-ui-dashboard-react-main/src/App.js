@@ -12,12 +12,12 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-
+import EnhancedTable from "examples/CustomTable/Table";
 import { useState, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 
 // react-router components
-import { Routes, Route, Navigate , useNavigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate , useLocation, Link } from "react-router-dom";
 
 // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
@@ -48,9 +48,10 @@ import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from "contex
 
 // Images
 import brand from "assets/images/logo-ct.png";
-import SignIn from "layouts/authentication/sign-in";
+// import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
-import Dashboard from "layouts/dashboard";
+import { element } from "prop-types";
+// import Dashboard from "layouts/dashboard";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -59,7 +60,7 @@ export default function App() {
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
   const isLoggedIn = useSelector(state => state.loginState.isLoggedIn);
-  const navigate=useNavigate()
+  // const navigate=useNavigate()
 
   // Cache for the rtl
   useMemo(() => {
@@ -148,7 +149,7 @@ export default function App() {
               color={sidenavColor}
               brand={brand}
               brandName="Dashboard"
-              routes={routes.slice(0,2)}
+              routes={routes.slice(0,3)}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
             />
@@ -158,8 +159,10 @@ export default function App() {
         )}
         {layout === "vr" && <Configurator />}
         <Routes>
-          {getRoutes(routes.slice(0,2))}
-          {isLoggedIn && <Route path="*" element={<Navigate to="/dashboard" />} />}
+          {getRoutes(routes.slice(0,3))}
+          {isLoggedIn && (<><Route path="*" element={<Navigate to="/dashboard" />} />
+          <Route path="/product-inventory" element={<Navigate to="/product-inventory" />} />
+          </>)}
         </Routes>
 
       </ThemeProvider>
@@ -173,7 +176,7 @@ export default function App() {
             color={sidenavColor}
             brand={brand}
             brandName="Dashboard"
-            routes={routes.slice(0,2)}
+            routes={routes.slice(0,3)}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
@@ -181,9 +184,11 @@ export default function App() {
           {configsButton}
         </>
       )}
+      
       {layout === "vr" && <Configurator />}
       <Routes>
-        {isLoggedIn? getRoutes(routes.slice(0,2)): getRoutes(routes.slice(2)) }
+        
+        {isLoggedIn? getRoutes(routes.slice(0,3)): getRoutes(routes.slice(3)) }
         { !isLoggedIn? <>
                 <Route path='*' element={<Navigate to='/authentication/sign-in'/>} /> 
                 <Route path='/authentication/sign-up' element={<SignUp />} />

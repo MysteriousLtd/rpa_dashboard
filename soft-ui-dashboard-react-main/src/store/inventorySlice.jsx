@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios"
+// import { Store } from "@reduxjs/toolkit";
 
 axios.defaults.baseURL = 'http://34.235.34.12:7001/api/v1'
 
@@ -18,7 +19,6 @@ export const fetchInventoryData = createAsyncThunk(
             }
         )
 
-        console.log(res.data)
         return res.data
     }
 )
@@ -26,6 +26,7 @@ export const fetchInventoryData = createAsyncThunk(
 export const updateVender = createAsyncThunk(
     'table/updateVender',
     async ({ orderno, updateVender }) => {
+        
         await axios.put(`http://34.235.34.12:7001/api/v1/orders/guardian/${orderno}`, updateVender, {
             headers: { 'Content-Type': 'application/json' }
         })
@@ -45,29 +46,29 @@ export const updateVender = createAsyncThunk(
 // )
 
 const InventorySlice = createSlice({
-    name: 'table',
+    name: 'inventory',
     initialState: {
-        tableData: [],
+        inventoryData: [],
         error: {},
         success: {},
         isPosted: true,
     },
     extraReducers(builder) {
         builder.addCase(fetchInventoryData.fulfilled, (state, action) => {
-            state.isPosted ? state.tableData = action.payload : state
+            state.isPosted? state.inventoryData = action.payload :state
             state.isPosted = false
         })
         builder.addCase(fetchInventoryData.rejected, (state, action) => {
             state.error = action.payload;
             state.isPosted = false
         })
-        builder.addCase(postOrder.fulfilled, (state, action) => {
-            state.success = action.payload;
-            state.isPosted = true
-        })
-        builder.addCase(postOrder.rejected, (state, action) => {
-            action.payload ? state.error = action.payload : state
-        })
+        // builder.addCase(postOrder.fulfilled, (state, action) => {
+        //     state.success = action.payload;
+        //     // state.isPosted = true
+        // })
+        // builder.addCase(postOrder.rejected, (state, action) => {
+        //     action.payload ? state.error = action.payload : state
+        // })
         builder.addCase(updateVender.fulfilled, (state, action) => {
             state.success = action.payload;
             state.isPosted = true

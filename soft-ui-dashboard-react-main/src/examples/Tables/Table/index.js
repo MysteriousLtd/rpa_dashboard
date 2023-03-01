@@ -37,6 +37,8 @@ import colors from "assets/theme/base/colors";
 import typography from "assets/theme/base/typography";
 import borders from "assets/theme/base/borders";
 
+// const TRow=({orderno, orderp, })
+
 function Table({ columns, rows, edit }) {
   const { light } = colors;
   const { size, fontWeightBold } = typography;
@@ -76,7 +78,7 @@ function Table({ columns, rows, edit }) {
         {name.toUpperCase()}
       </SoftBox>
     );
-  }),[edit])
+  }))
   ;
 
   const renderRows = useMemo(()=>rows.map((row, key) => {
@@ -128,7 +130,7 @@ function Table({ columns, rows, edit }) {
     });
 
     return <TableRow key={rowKey}>{tableRow}</TableRow>;
-  }),[edit]);
+  }));
 
   return useMemo(
     () => (
@@ -141,7 +143,7 @@ function Table({ columns, rows, edit }) {
         </MuiTable>
       </TableContainer>
     ),
-    [columns, rows]
+    [columns, rows,edit]
   )
     }
 

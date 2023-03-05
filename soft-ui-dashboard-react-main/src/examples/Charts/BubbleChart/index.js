@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v4.0.0
+* RPA Dashboard React - v4.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -24,14 +24,14 @@ import { Bubble } from "react-chartjs-2";
 // @mui material components
 import Card from "@mui/material/Card";
 
-// Mysterious Tech Dashboard React components
+// RPA Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 
 // BubbleChart configurations
 import configs from "examples/Charts/BubbleChart/configs";
 
-// Mysterious Tech Dashboard React base styles
+// RPA Dashboard React base styles
 import colors from "assets/theme/base/colors";
 
 function BubbleChart({ title, description, height, chart }) {

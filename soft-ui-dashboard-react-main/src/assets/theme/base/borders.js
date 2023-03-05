@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v3.1.0
+* RPA Dashboard React - v3.1.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-pro-react
@@ -14,15 +14,15 @@ Coded by www.creative-tim.com
 */
 
 /**
- * The base border styles for the Mysterious Tech Dashboard React.
+ * The base border styles for the RPA Dashboard React.
  * You can add new border width, border color or border radius using this file.
- * You can customized the borders value for the entire Mysterious Tech Dashboard React using thie file.
+ * You can customized the borders value for the entire RPA Dashboard React using thie file.
  */
 
-// Mysterious Tech Dashboard React Base Styles
+// RPA Dashboard React Base Styles
 import colors from "assets/theme/base/colors";
 
-// Mysterious Tech Dashboard React Helper Functions
+// RPA Dashboard React Helper Functions
 import pxToRem from "assets/theme/functions/pxToRem";
 
 const { grey } = colors;

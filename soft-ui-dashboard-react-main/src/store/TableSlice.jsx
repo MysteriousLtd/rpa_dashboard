@@ -8,9 +8,7 @@ export const fetchTableData = createAsyncThunk(
     'table/fetchTableData',
     async (_, ThunkAPI) => {
 
-        console.log("Fetch")
         const { tform } = ThunkAPI.getState()
-        // console.log(tform)
         const res = await axios.get(`/orders/guardian/${tform.select}`,
             // {
             //     'ClientID':'Client_Sofabed',
@@ -28,11 +26,11 @@ export const fetchTableData = createAsyncThunk(
 
 export const updateOrder = createAsyncThunk(
     'table/updateOrder',
-    async (orderno, getState) => {
+    async (ordernum, APIThunk) => {
+        const { tform, loginState } = APIThunk.getState()
 
-        const { tform, loginState } = getState()
-        // console.log(tform.input2, tform, orderno, )
-        await axios.put(`/orders/guardian/${tform.select}/${orderno}`,
+        console.log(tform, loginState, ordernum)
+        await axios.put(`/orders/guardian/${tform.select}/${ordernum}`,
             {
                 "OrderNumber": tform.input1,
                 "OrderPeriod": tform.input2,
@@ -50,7 +48,6 @@ export const postOrder = createAsyncThunk(
     async (article, APIThunk) => {
         
         const { tform, loginState } = APIThunk.getState()
-        console.log("tessssst", tform.select)
         await axios.post('/orders/guardian', {
             "ClientID": tform.select,
             "OrderNumber": article.orderno,

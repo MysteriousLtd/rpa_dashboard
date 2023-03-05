@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v4.0.0
+* RPA Dashboard React - v4.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -25,16 +25,16 @@ import PropTypes from "prop-types";
 import Container from "@mui/material/Container";
 import Icon from "@mui/material/Icon";
 
-// Mysterious Tech Dashboard React components
+// RPA Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftButton from "components/SoftButton";
 
-// Mysterious Tech Dashboard React examples
+// RPA Dashboard React examples
 import DefaultNavbarLink from "examples/Navbars/DefaultNavbar/DefaultNavbarLink";
 import DefaultNavbarMobile from "examples/Navbars/DefaultNavbar/DefaultNavbarMobile";
 
-// Mysterious Tech Dashboard React base styles
+// RPA Dashboard React base styles
 import breakpoints from "assets/theme/base/breakpoints";
 
 function DefaultNavbar({ transparent, light, action }) {
@@ -93,7 +93,7 @@ function DefaultNavbar({ transparent, light, action }) {
       >
         <SoftBox component={Link} to="/" py={transparent ? 1.5 : 0.75} lineHeight={1}>
           <SoftTypography variant="button" fontWeight="bold" color={light ? "white" : "dark"}>
-            Mysterious Tech Dashboard
+            RPA Dashboard
           </SoftTypography>
         </SoftBox>
         {/* <SoftBox color="inherit" display={{ xs: "none", lg: "flex" }} m={0} p={0}>

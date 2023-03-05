@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v4.0.0
+* RPA Dashboard React - v4.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -27,12 +27,12 @@ import Divider from "@mui/material/Divider";
 import Link from "@mui/material/Link";
 import Icon from "@mui/material/Icon";
 
-// Mysterious Tech Dashboard React components
+// RPA Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftButton from "components/SoftButton";
 
-// Mysterious Tech Dashboard React examples
+// RPA Dashboard React examples
 import SidenavCollapse from "examples/Sidenav/SidenavCollapse";
 import SidenavCard from "examples/Sidenav/SidenavCard";
 
@@ -40,7 +40,7 @@ import SidenavCard from "examples/Sidenav/SidenavCard";
 import SidenavRoot from "examples/Sidenav/SidenavRoot";
 import sidenavLogoLabel from "examples/Sidenav/styles/sidenav";
 
-// Mysterious Tech Dashboard React context
+// RPA Dashboard React context
 import { useSoftUIController, setMiniSidenav } from "context";
 
 function Sidenav({ color, brand, brandName, routes, ...rest }) {
@@ -144,7 +144,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           </SoftTypography>
         </SoftBox>
         <SoftBox component={NavLink} to="/" display="flex" alignItems="center">
-          {brand && <SoftBox component="img" src={brand} alt="Mysterious Tech Logo" width="2rem" />}
+          {brand && <SoftBox component="img" src={brand} alt="RPA Logo" width="2rem" />}
           <SoftBox
             width={!brandName && "100%"}
             sx={(theme) => sidenavLogoLabel(theme, { miniSidenav })}

@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v4.0.0
+* RPA Dashboard React - v4.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -14,7 +14,7 @@ Coded by www.creative-tim.com
 */
 
 /* eslint-disable no-dupe-keys */
-// Mysterious Tech Dashboard React base styles
+// RPA Dashboard React base styles
 import colors from "assets/theme/base/colors";
 
 const { gradients, dark } = colors;

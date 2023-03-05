@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v4.0.0
+* RPA Dashboard React - v4.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -16,7 +16,7 @@ Coded by www.creative-tim.com
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
-// Mysterious Tech Dashboard React base styles
+// RPA Dashboard React base styles
 import colors from "assets/theme/base/colors";
 
 function CreditCard({ color, size }) {

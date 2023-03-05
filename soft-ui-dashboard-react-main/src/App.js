@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v4.0.0
+* RPA Dashboard React - v4.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -12,7 +12,7 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-import EnhancedTable from "examples/CustomTable/Table";
+// import EnhancedTable from "examples/CustomTable/Table";
 import { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -24,14 +24,14 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Icon from "@mui/material/Icon";
 
-// Mysterious Tech Dashboard React components
+// RPA Dashboard React components
 import SoftBox from "components/SoftBox";
 
-// Mysterious Tech Dashboard React examples
+// RPA Dashboard React examples
 import Sidenav from "examples/Sidenav";
 import Configurator from "examples/Configurator";
 
-// Mysterious Tech Dashboard React themes
+// RPA Dashboard React themes
 import theme from "assets/theme";
 import themeRTL from "assets/theme/theme-rtl";
 
@@ -40,10 +40,10 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
-// Mysterious Tech Dashboard React routes
+// RPA Dashboard React routes
 import routes from "routes";
 
-// Mysterious Tech Dashboard React contexts
+// RPA Dashboard React contexts
 import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from "context";
 
 // Images
@@ -68,8 +68,9 @@ export default function App() {
   const isLoggedIn = useSelector(state=> state.loginState.isLoggedIn)
   // const navigate=useNavigate()
   const LoggedInUser=()=>{
-    const user= onAuthStateChanged(auth, (currUser)=>{
-    if(currUser){
+  
+      const user= onAuthStateChanged(auth, (currUser)=>{
+    if(currUser && currUser.displayName){
         return dispatchR(loginActions.LogIn({
           email: currUser.email,
           uid: currUser.uid,
@@ -77,9 +78,12 @@ export default function App() {
           photoUrl: currUser.photoURL,
         }))
     }
-  })
+  } )
+    
+   
     
   }
+  // const history= useHistory()
 
   useEffect(() =>{
     LoggedInUser()

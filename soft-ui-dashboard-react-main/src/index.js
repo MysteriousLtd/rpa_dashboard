@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v4.0.0
+* RPA Dashboard React - v4.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -20,7 +20,7 @@ import App from "App";
 import { Provider } from "react-redux";
 import store from "./store";
 
-// Mysterious Tech Dashboard React Context Provider
+// RPA Dashboard React Context Provider
 import { SoftUIControllerProvider } from "context";
 
 ReactDOM.render(

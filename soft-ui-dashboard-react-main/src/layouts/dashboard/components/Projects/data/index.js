@@ -1,7 +1,7 @@
 // @mui material components
 import Tooltip from "@mui/material/Tooltip";
 
-// Mysterious Tech Dashboard React components
+// RPA Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftAvatar from "components/SoftAvatar";
@@ -55,7 +55,7 @@ export default function data() {
 
     rows: [
       {
-        companies: [logoXD, "Mysterious Tech XD Version"],
+        companies: [logoXD, "RPA XD Version"],
         members: (
           <SoftBox display="flex" py={1}>
             {avatars([

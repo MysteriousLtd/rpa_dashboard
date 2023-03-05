@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v4.0.0
+* RPA Dashboard React - v4.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -16,7 +16,7 @@ Coded by www.creative-tim.com
 // @mui material components
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
-// Mysterious Tech Dashboard React components
+// RPA Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftButton from "components/SoftButton";
@@ -24,7 +24,7 @@ import SoftInput from "components/SoftInput";
 import SoftBadge from "components/SoftBadge";
 
 
-// Mysterious Tech Dashboard React examples
+// RPA Dashboard React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
@@ -131,7 +131,6 @@ function Tables() {
   const isPosted = useSelector(state => state.table.isPosted)
   const select = useSelector(state => state.tform.select)
   // const [inp1, setinp1] = useState(useSelector(state => state.tform.input1))
-  console.log(select)
   
   useEffect(() => {
     dispatch(fetchTableData())
@@ -140,15 +139,12 @@ function Tables() {
   const table= useSelector(state => state.table.tableData)
 
   
-  useEffect(()=>{
-    console.log(table)
-  },[table])
+
    
 
   const update = ordernum => {
 
     // let inp1=useSelector(state=>state.tform.input1)
-    // console.log( ordernum); 
     dispatch(updateOrder(ordernum));
     setEIndex(null)
   }
@@ -250,7 +246,6 @@ function Tables() {
     setOrderno('');
     setOrderp('');
   }
-  console.log(table)
   return (
     <DashboardLayout>
       <DashboardNavbar />

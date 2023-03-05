@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v4.0.0
+* RPA Dashboard React - v4.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -22,20 +22,20 @@ import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
-// Mysterious Tech Dashboard React components
+// RPA Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftAvatar from "components/SoftAvatar";
 
-// Mysterious Tech Dashboard React examples
+// RPA Dashboard React examples
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
-// Mysterious Tech Dashboard React icons
+// RPA Dashboard React icons
 import Cube from "examples/Icons/Cube";
 import Document from "examples/Icons/Document";
 import Settings from "examples/Icons/Settings";
 
-// Mysterious Tech Dashboard React base styles
+// RPA Dashboard React base styles
 import breakpoints from "assets/theme/base/breakpoints";
 
 // Images

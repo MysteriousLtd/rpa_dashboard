@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v4.0.0
+* RPA Dashboard React - v4.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -17,7 +17,7 @@ Coded by www.creative-tim.com
   The boxShadow() function helps you to create a box shadow for an element
  */
 
-// Mysterious Tech Dashboard React helper functions
+// RPA Dashboard React helper functions
 import rgba from "assets/theme/functions/rgba";
 import pxToRem from "assets/theme/functions/pxToRem";
 

@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v3.1.0
+* RPA Dashboard React - v3.1.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-pro-react
@@ -14,9 +14,9 @@ Coded by www.creative-tim.com
 */
 
 /**
- * The base colors for the Mysterious Tech Dashboard React.
+ * The base colors for the RPA Dashboard React.
  * You can add new color using this file.
- * You can customized the colors for the entire Mysterious Tech Dashboard React using thie file.
+ * You can customized the colors for the entire RPA Dashboard React using thie file.
  */
 
 const colors = {

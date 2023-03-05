@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v4.0.0
+* RPA Dashboard React - v4.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -27,12 +27,12 @@ import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 
-// Mysterious Tech Dashboard React components
+// RPA Dashboard React components
 import SoftBox from "components/SoftBox";
 // import SoftAvatar from "components/SoftAvatar";
 import SoftTypography from "components/SoftTypography";
 
-// Mysterious Tech Dashboard React base styles
+// RPA Dashboard React base styles
 import colors from "assets/theme/base/colors";
 import typography from "assets/theme/base/typography";
 import borders from "assets/theme/base/borders";
@@ -49,7 +49,6 @@ function Table({ columns, rows, edit }) {
   const select=useSelector(state=>state.tform.select)
 
   useEffect(()=>{
-    // console.log(rows.length)
     setTrows(rows)
     setTcols(columns)
   },[rows, columns])
@@ -71,7 +70,6 @@ function Table({ columns, rows, edit }) {
   const renderColumns = useMemo(()=>tcols.map(({ name, align, width }, key) => {
     let pl;
     let pr;
-    console.log("renderedcols",select)
 
     if (key === 0) {
       pl = 3;
@@ -115,10 +113,8 @@ function Table({ columns, rows, edit }) {
 
   const renderRows = useMemo(()=>trows.map((row, key) => {
     const rowKey = `row-${key}`;
-    console.log("renderedrows",select)
     const tableRow = tcols.map(({ name, align }) => {
       let template;
-      // console.log(name)
       if (Array.isArray(row[name])) {
         template = (
           <SoftBox
@@ -162,11 +158,10 @@ function Table({ columns, rows, edit }) {
     });
 
     return <TableRow key={rowKey}>{tableRow}</TableRow>;
-  }),[trows, tcols,select]);
+  }),[trows, tcols,select,edit]);
 
   return useMemo( ()=> (
       <TableContainer>
-        {console.log('rendered', select)}
         <MuiTable>
           <SoftBox component="thead">
             <TableRow>{renderColumns}</TableRow>
@@ -176,7 +171,6 @@ function Table({ columns, rows, edit }) {
       </TableContainer>
     ),[trows,tcols, edit, select])
     }
-// console.log(select)
 // Setting default values for the props of Table
 Table.defaultProps = {
   columns: [],

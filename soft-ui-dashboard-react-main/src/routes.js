@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v4.0.0
+* RPA Dashboard React - v4.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -14,7 +14,7 @@ Coded by www.creative-tim.com
 */
 
 /** 
-  All of the routes for the Mysterious Tech Dashboard React are added here,
+  All of the routes for the RPA Dashboard React are added here,
   You can add a new route, customize the routes and delete the routes here.
 
   Once you add a new route on this file it will be visible automatically on
@@ -35,7 +35,7 @@ Coded by www.creative-tim.com
   10. The `component` key is used to store the component of its route.
 */
 
-// Mysterious Tech Dashboard React layouts
+// RPA Dashboard React layouts
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
 import InventoryTable from 'layouts/inventoryTables'
@@ -46,7 +46,7 @@ import InventoryTable from 'layouts/inventoryTables'
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 
-// Mysterious Tech Dashboard React icons
+// RPA Dashboard React icons
 import Shop from "examples/Icons/Shop";
 import Office from "examples/Icons/Office";
 // import Settings from "examples/Icons/Settings";

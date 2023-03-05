@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v4.0.0
+* RPA Dashboard React - v4.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -24,7 +24,7 @@ import SoftInputWithIconRoot from "components/SoftInput/SoftInputWithIconRoot";
 import SoftInputIconBoxRoot from "components/SoftInput/SoftInputIconBoxRoot";
 import SoftInputIconRoot from "components/SoftInput/SoftInputIconRoot";
 
-// Mysterious Tech Dashboard React contexts
+// RPA Dashboard React contexts
 import { useSoftUIController } from "context";
 
 const SoftInput = forwardRef(({ size, icon, error, success, disabled, ...rest }, ref) => {

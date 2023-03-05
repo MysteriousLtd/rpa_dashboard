@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+// import { useLocation } from "react-router-dom";
+// const {pathname} = useLocation();
 const TForm= createSlice({
     name:'tform',
     initialState:{
@@ -18,7 +19,7 @@ const TForm= createSlice({
         setSelect(state,action){
             state.select=action.payload
             window.location.reload()
-            
+            // console.log(pathname)
             // state.reload=false
         },
         // setReload(state){

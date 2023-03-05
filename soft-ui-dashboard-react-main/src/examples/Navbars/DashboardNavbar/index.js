@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v4.0.0
+* RPA Dashboard React - v4.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -28,12 +28,12 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import Icon from "@mui/material/Icon";
 
-// Mysterious Tech Dashboard React components
+// RPA Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 // import SoftInput from "components/SoftInput";
 
-// Mysterious Tech Dashboard React examples
+// RPA Dashboard React examples
 import Breadcrumbs from "examples/Breadcrumbs";
 import NotificationItem from "examples/Items/NotificationItem";
 
@@ -48,7 +48,7 @@ import {
 import {auth, signOut} from '../../../firebase'
 import { useDispatch } from "react-redux";
 
-// Mysterious Tech Dashboard React context
+// RPA Dashboard React context
 import {
   useSoftUIController,
   setTransparentNavbar,

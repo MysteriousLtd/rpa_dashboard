@@ -7,7 +7,6 @@ export const fetchInventoryData = createAsyncThunk(
     'inventory/fetchInventoryData',
     async (_, ThunkAPI) => {
         const {tform} = ThunkAPI.getState()
-        console.log(tform.select)
         const res = await axios.get(`/inventory/products/${tform.select}`,
             {
                 headers: {
@@ -24,7 +23,6 @@ export const updateVendor = createAsyncThunk(
     'inventory/updateVendor',
      async ( psku , ThunkAPI ) => {
         const { tform, loginState } = ThunkAPI.getState();
-        console.log( psku, tform, loginState)
          await axios.put('/inventory/products',
             {
                 "ClientID": tform.select ,
@@ -67,7 +65,6 @@ const InventorySlice = createSlice({
             state.isPosted? state.inventoryData = action.payload :state
             state.isPosted = false
             // window.location.reload(false)
-            console.log('fetched inventory')
         })
         builder.addCase(fetchInventoryData.rejected, (state, action) => {
             state.error = action.payload;

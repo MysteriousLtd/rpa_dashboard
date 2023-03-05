@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v4.0.0
+* RPA Dashboard React - v4.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -26,7 +26,7 @@ import Icon from "@mui/material/Icon";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
 
-// Mysterious Tech Dashboard React components
+// RPA Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftButton from "components/SoftButton";
@@ -34,7 +34,7 @@ import SoftButton from "components/SoftButton";
 // Custom styles for the Configurator
 import ConfiguratorRoot from "examples/Configurator/ConfiguratorRoot";
 
-// Mysterious Tech Dashboard React context
+// RPA Dashboard React context
 import {
   useSoftUIController,
   setOpenConfigurator,
@@ -95,7 +95,7 @@ function Configurator() {
         px={3}
       >
         <SoftBox>
-          <SoftTypography variant="h5">Mysterious Tech Configurator</SoftTypography>
+          <SoftTypography variant="h5">RPA Configurator</SoftTypography>
           <SoftTypography variant="body2" color="text">
             See our dashboard options.
           </SoftTypography>

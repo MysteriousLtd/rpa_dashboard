@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v4.0.0
+* RPA Dashboard React - v4.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -24,17 +24,17 @@ import { Line } from "react-chartjs-2";
 // @mui material components
 import Card from "@mui/material/Card";
 
-// Mysterious Tech Dashboard React components
+// RPA Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 
-// Mysterious Tech Dashboard React helper functions
+// RPA Dashboard React helper functions
 import gradientChartLine from "assets/theme/functions/gradientChartLine";
 
 // GradientLineChart configurations
 import configs from "examples/Charts/LineCharts/GradientLineChart/configs";
 
-// Mysterious Tech Dashboard React base styles
+// RPA Dashboard React base styles
 import colors from "assets/theme/base/colors";
 
 function GradientLineChart({ title, description, height, chart }) {

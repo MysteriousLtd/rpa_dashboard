@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v4.0.0
+* RPA Dashboard React - v4.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -16,7 +16,7 @@ Coded by www.creative-tim.com
 // @mui material components
 import { styled } from "@mui/material/styles";
 
-// Mysterious Tech Dashboard React components
+// RPA Dashboard React components
 import SoftButton from "components/SoftButton";
 
 export default styled(SoftButton)(({ theme, ownerState }) => {

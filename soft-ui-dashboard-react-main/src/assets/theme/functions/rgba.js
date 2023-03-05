@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v4.0.0
+* RPA Dashboard React - v4.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -18,7 +18,7 @@ Coded by www.creative-tim.com
   to convert the hex code into rgb for using it inside the rgba color format.
  */
 
-// Mysterious Tech Dashboard React helper functions
+// RPA Dashboard React helper functions
 import hexToRgb from "assets/theme/functions/hexToRgb";
 
 function rgba(color, opacity) {

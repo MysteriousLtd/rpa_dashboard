@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v3.1.0
+* RPA Dashboard React - v3.1.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-pro-react
@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// Mysterious Tech Dashboard React Button Styles
+// RPA Dashboard React Button Styles
 import root from "assets/theme/components/button/root";
 import contained from "assets/theme/components/button/contained";
 import outlined from "assets/theme/components/button/outlined";

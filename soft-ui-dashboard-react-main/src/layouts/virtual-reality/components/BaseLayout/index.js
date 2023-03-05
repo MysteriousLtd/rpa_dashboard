@@ -1,6 +1,6 @@
 /**
 =========================================================
-* Mysterious Tech Dashboard React - v4.0.0
+* RPA Dashboard React - v4.0.0
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
@@ -21,19 +21,19 @@ import { useLocation } from "react-router-dom";
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
-// Mysterious Tech Dashboard React components
+// RPA Dashboard React components
 import SoftBox from "components/SoftBox";
 
-// Mysterious Tech Dashboard React examples
+// RPA Dashboard React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import Sidenav from "examples/Sidenav";
 
-// Mysterious Tech Dashboard React context
+// RPA Dashboard React context
 import { useSoftUIController, setMiniSidenav, setLayout, setTransparentSidenav } from "context";
 
-// Mysterious Tech Dashboard React routes
+// RPA Dashboard React routes
 import routes from "routes";
 
 // Custom styles for the BaseLayout
@@ -83,7 +83,7 @@ function BaseLayout({ children }) {
         <SoftBox display={{ xs: "block", lg: "none" }}>
           <Sidenav
             brand={brand}
-            brandName="Mysterious Tech Dashboard PRO"
+            brandName="RPA Dashboard PRO"
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
@@ -94,7 +94,7 @@ function BaseLayout({ children }) {
             <Sidenav
               color={sidenavColor}
               brand={brand}
-              brandName="Mysterious Tech Dashboard PRO"
+              brandName="RPA Dashboard PRO"
               routes={routes}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}

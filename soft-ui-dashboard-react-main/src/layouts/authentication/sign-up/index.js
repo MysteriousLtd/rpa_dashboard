@@ -99,7 +99,6 @@ function SignUp() {
         <Separator /> */}
         <SoftBox pt={4} pb={3} px={3}>
           <SoftBox  component="form" role="form" >
-            
             <SoftBox mb={2}>
               <SoftInput onChange={(e) => setName(e.target.value)} placeholder="Name" />
             </SoftBox>
@@ -148,7 +147,6 @@ function SignUp() {
                   color="dark"
                   fontWeight="bold"
                   textGradient
-                 
                 >
                   Sign in
                 </SoftTypography>

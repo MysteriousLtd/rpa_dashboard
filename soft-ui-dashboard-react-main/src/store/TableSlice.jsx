@@ -1,13 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios"
+// import { BaseThunkAPI } from "@reduxjs/toolkit/dist/createAsyncThunk";
 
-axios.defaults.baseURL = 'http://34.235.34.12:7001/api/v1'
+axios.defaults.baseURL = "http://34.235.34.12:7001/api/v1"
 
 export const fetchTableData = createAsyncThunk(
-    'table/fetchTable',
-    async () => {
+    'table/fetchTableData',
+    async (_, ThunkAPI) => {
 
-        const res = await axios.get('/orders/guardian/Client_Sofabed',
+        console.log("Fetch")
+        const { tform } = ThunkAPI.getState()
+        // console.log(tform)
+        const res = await axios.get(`/orders/guardian/${tform.select}`,
             // {
             //     'ClientID':'Client_Sofabed',
             // },
@@ -18,26 +22,23 @@ export const fetchTableData = createAsyncThunk(
                 }
             }
         )
-
-        // console.log(res.data)
         return res.data
     }
 )
 
 export const updateOrder = createAsyncThunk(
     'table/updateOrder',
-    async (orderno, { getState }) => {
+    async (orderno, getState) => {
 
         const { tform, loginState } = getState()
         // console.log(tform.input2, tform, orderno, )
-        await axios.put(`http://34.235.34.12:7001/api/v1/orders/guardian/Client_Sofabed/${orderno}`,
+        await axios.put(`/orders/guardian/${tform.select}/${orderno}`,
             {
                 "OrderNumber": tform.input1,
                 "OrderPeriod": tform.input2,
                 "OrderModifiedBy": loginState.user.displayName
             }, {
-            headers: { 'Content-Type': 'application/json' 
-        }
+            headers: { 'Content-Type': 'application/json' }
         })
 
 
@@ -46,8 +47,16 @@ export const updateOrder = createAsyncThunk(
 
 export const postOrder = createAsyncThunk(
     'table/postOrder',
-    async (order) => {
-        await axios.post('http://34.235.34.12:7001/api/v1/orders/guardian', order, {
+    async (article, APIThunk) => {
+        
+        const { tform, loginState } = APIThunk.getState()
+        console.log("tessssst", tform.select)
+        await axios.post('/orders/guardian', {
+            "ClientID": tform.select,
+            "OrderNumber": article.orderno,
+            "OrderPeriod": article.orderp,
+            "OrderCreatedBy": "Ann"
+        }, {
             headers: {
                 'content-type': 'application/json',
                 // 'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJhZG1pbiIsImlhdCI6MTY3NzI2MDYzOCwiZXhwIjoxNjc3MjY0MjM4fQ.2k3DXrUW0EhTXnWMIVcSd8EbxtYCcCV3ejFQimpoTlA'

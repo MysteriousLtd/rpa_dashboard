@@ -13,8 +13,8 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useMemo } from "react";
-
+import { useMemo, useEffect , useState} from "react";
+import { useSelector } from "react-redux";
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
@@ -38,20 +38,45 @@ import typography from "assets/theme/base/typography";
 import borders from "assets/theme/base/borders";
 
 // const TRow=({orderno, orderp, })
+// const select=useSelector(state=>state.tform.select)
 
 function Table({ columns, rows, edit }) {
   const { light } = colors;
   const { size, fontWeightBold } = typography;
   const { borderWidth } = borders;
+  const [trows, setTrows]=useState(rows)
+  const [tcols, setTcols]=useState(columns)
+  const select=useSelector(state=>state.tform.select)
 
-  const renderColumns = useMemo(()=>columns.map(({ name, align, width }, key) => {
+  useEffect(()=>{
+    // console.log(rows.length)
+    setTrows(rows)
+    setTcols(columns)
+  },[rows, columns])
+  // const [reload, setReload]=useState(true)
+  // const [prevSelect, setPrevSelect]= useState(select)
+  // const select = useSelector(state => state.tform.select)
+  // useMemo((select)=>{
+  //   if(prevSelect!==select){
+  //     setPrevSelect(select)
+  //     setReload(false)
+  //   }
+  //   else{
+  //     setReload(true)
+  //   }
+  //   window.location.reload(reload)
+    
+  // },[select])
+  
+  const renderColumns = useMemo(()=>tcols.map(({ name, align, width }, key) => {
     let pl;
     let pr;
+    console.log("renderedcols",select)
 
     if (key === 0) {
       pl = 3;
       pr = 3;
-    } else if (key === columns.length - 1) {
+    } else if (key === tcols.length - 1) {
       pl = 3;
       pr = 3;
     } else {
@@ -78,19 +103,26 @@ function Table({ columns, rows, edit }) {
         {name.toUpperCase()}
       </SoftBox>
     );
-  }))
+  }),[tcols,select,edit])
   ;
 
-  const renderRows = useMemo(()=>rows.map((row, key) => {
+  // const reload= useCallback(()=>{
+  //   window.location.reload(false);
+  // }, [rows])
+  // useEffect(
+  //   reload()
+  //   ,[rows])
+
+  const renderRows = useMemo(()=>trows.map((row, key) => {
     const rowKey = `row-${key}`;
-
-    const tableRow = columns.map(({ name, align }) => {
+    console.log("renderedrows",select)
+    const tableRow = tcols.map(({ name, align }) => {
       let template;
-
+      // console.log(name)
       if (Array.isArray(row[name])) {
         template = (
           <SoftBox
-            key={uuidv4()}
+            key={name}
             component="td"
             p={1}
             borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
@@ -108,7 +140,7 @@ function Table({ columns, rows, edit }) {
       } else {
         template = (
           <SoftBox
-            key={uuidv4()}
+            key={name}
             component="td"
             p={1}
             textAlign={align}
@@ -130,23 +162,21 @@ function Table({ columns, rows, edit }) {
     });
 
     return <TableRow key={rowKey}>{tableRow}</TableRow>;
-  }));
+  }),[trows, tcols,select]);
 
-  return useMemo(
-    () => (
+  return useMemo( ()=> (
       <TableContainer>
+        {console.log('rendered', select)}
         <MuiTable>
           <SoftBox component="thead">
             <TableRow>{renderColumns}</TableRow>
           </SoftBox>
-         {rows!==[{}] && <TableBody>{renderRows}</TableBody>}
+         {trows!==[{}] && <TableBody>{renderRows}</TableBody>}
         </MuiTable>
       </TableContainer>
-    ),
-    [columns, rows,edit]
-  )
+    ),[trows,tcols, edit, select])
     }
-
+// console.log(select)
 // Setting default values for the props of Table
 Table.defaultProps = {
   columns: [],

@@ -1,16 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios"
-// import { Store } from "@reduxjs/toolkit";
+import axios from "axios";
 
 axios.defaults.baseURL = 'http://34.235.34.12:7001/api/v1'
 
 export const fetchInventoryData = createAsyncThunk(
-    'table/fetchInventory',
-    async () => {
-        const res = await axios.get('/inventory/products/Client_Sofabed',
-            // {
-            //     'ClientID':'Client_Sofabed',
-            // },
+    'inventory/fetchInventoryData',
+    async (_, ThunkAPI) => {
+        const {tform} = ThunkAPI.getState()
+        console.log(tform.select)
+        const res = await axios.get(`/inventory/products/${tform.select}`,
             {
                 headers: {
                     'content-type': 'application/json',
@@ -18,16 +16,24 @@ export const fetchInventoryData = createAsyncThunk(
                 }
             }
         )
-
         return res.data
     }
 )
 
-export const updateVender = createAsyncThunk(
-    'table/updateVender',
-    async ({ orderno, updateVender }) => {
-        
-        await axios.put(`http://34.235.34.12:7001/api/v1/orders/guardian/${orderno}`, updateVender, {
+export const updateVendor = createAsyncThunk(
+    'inventory/updateVendor',
+     async ( psku , ThunkAPI ) => {
+        const { tform, loginState } = ThunkAPI.getState();
+        console.log( psku, tform, loginState)
+         await axios.put('/inventory/products',
+            {
+                "ClientID": tform.select ,
+                "productsku": psku,
+                "vendorname": tform.input1,
+                "vendorsku": tform.input2,
+                "modified_by":loginState.user.displayName
+        }
+        , {
             headers: { 'Content-Type': 'application/json' }
         })
     }
@@ -54,9 +60,14 @@ const InventorySlice = createSlice({
         isPosted: true,
     },
     extraReducers(builder) {
+        // builder.addCase(fetchInventoryData.pending, (state,action)=>{
+            
+        // })
         builder.addCase(fetchInventoryData.fulfilled, (state, action) => {
             state.isPosted? state.inventoryData = action.payload :state
             state.isPosted = false
+            // window.location.reload(false)
+            console.log('fetched inventory')
         })
         builder.addCase(fetchInventoryData.rejected, (state, action) => {
             state.error = action.payload;
@@ -69,12 +80,13 @@ const InventorySlice = createSlice({
         // builder.addCase(postOrder.rejected, (state, action) => {
         //     action.payload ? state.error = action.payload : state
         // })
-        builder.addCase(updateVender.fulfilled, (state, action) => {
+        builder.addCase(updateVendor.fulfilled, (state, action) => {
             state.success = action.payload;
             state.isPosted = true
         })
-        builder.addCase(updateVender.rejected, (state, action) => {
+        builder.addCase(updateVendor.rejected, (state, action) => {
             action.payload ? state.error = action.payload : state
+
         })
     },
 })

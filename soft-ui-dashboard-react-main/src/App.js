@@ -14,7 +14,7 @@ Coded by www.creative-tim.com
 */
 import EnhancedTable from "examples/CustomTable/Table";
 import { useState, useEffect, useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // react-router components
 import { Routes, Route, Navigate , useLocation, Link } from "react-router-dom";
@@ -50,8 +50,13 @@ import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from "contex
 import brand from "assets/images/logo-ct.png";
 // import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
-import { element } from "prop-types";
+// import { element } from "prop-types";
 // import Dashboard from "layouts/dashboard";
+import { auth, onAuthStateChanged } from "./firebase";
+import { loginActions } from "./store/LogSlice";
+import { getAuth } from "firebase/auth";
+
+
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -59,8 +64,27 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
-  const isLoggedIn = useSelector(state => state.loginState.isLoggedIn);
+  const dispatchR= useDispatch()
+  const isLoggedIn = useSelector(state=> state.loginState.isLoggedIn)
   // const navigate=useNavigate()
+  const LoggedInUser=()=>{
+    const user= onAuthStateChanged(auth, (currUser)=>{
+    if(currUser){
+        return dispatchR(loginActions.LogIn({
+          email: currUser.email,
+          uid: currUser.uid,
+          displayName: currUser.displayName,
+          photoUrl: currUser.photoURL,
+        }))
+    }
+  })
+    
+  }
+
+  useEffect(() =>{
+    LoggedInUser()
+  },[isLoggedIn])
+
 
   // Cache for the rtl
   useMemo(() => {
@@ -71,6 +95,9 @@ export default function App() {
 
     setRtlCache(cacheRtl);
   }, []);
+
+  // const isLoggedIn = useSelector(state => state.loginState.isLoggedIn);
+
 
   // Open sidenav when mouse enter on mini sidenav
   const handleOnMouseEnter = () => {
@@ -92,15 +119,15 @@ export default function App() {
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
 
   // Setting the dir attribute for the body element
-  useEffect(() => {
-    document.body.setAttribute("dir", direction);
-  }, [direction]);
+  // useEffect(() => {
+  //   document.body.setAttribute("dir", direction);
+  // }, [direction]);
 
   // Setting page scroll to 0 when changing the route
-  useEffect(() => {
-    document.documentElement.scrollTop = 0;
-    document.scrollingElement.scrollTop = 0;
-  }, [pathname]);
+  // useEffect(() => {
+  //   document.documentElement.scrollTop = 0;
+  //   document.scrollingElement.scrollTop = 0;
+  // }, [pathname]);
 
   const getRoutes = (allRoutes) =>
     allRoutes.map((route) => {
@@ -187,14 +214,17 @@ export default function App() {
       
       {layout === "vr" && <Configurator />}
       <Routes>
-        
-        {isLoggedIn? getRoutes(routes.slice(0,3)): getRoutes(routes.slice(3)) }
-        { !isLoggedIn? <>
+        {/* {console.log(LoggedInUser)} */}
+        {isLoggedIn ? getRoutes(routes.slice(0,3)): getRoutes(routes.slice(3)) }
+        { !isLoggedIn?<>
                 <Route path='*' element={<Navigate to='/authentication/sign-in'/>} /> 
                 <Route path='/authentication/sign-up' element={<SignUp />} />
         </>
-        :
+        : <>
+          <Route path='/guardian-order' element={<Navigate to='/guardian-order' />} /> 
+          <Route path='/product-inventory' element={<Navigate to='/product-inventory' />} /> 
           <Route path='*' element={<Navigate to='/dashboard' />} /> 
+         </>
         }
       </Routes>
     </ThemeProvider>

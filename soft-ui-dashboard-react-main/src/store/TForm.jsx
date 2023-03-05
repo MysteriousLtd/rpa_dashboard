@@ -5,6 +5,8 @@ const TForm= createSlice({
     initialState:{
         input1:'', //ordernumber/vendornumber
         input2:'', //orderperiod/ vendorsku
+        select: '',
+        // reload: true
     },
     reducers:{
         setInput1(state,action){
@@ -12,7 +14,16 @@ const TForm= createSlice({
         },
         setInput2(state,action){
             state.input2=action.payload
-        }
+        },
+        setSelect(state,action){
+            state.select=action.payload
+            window.location.reload()
+            
+            // state.reload=false
+        },
+        // setReload(state){
+        //     state.reload=true
+        // }
     }
 })
 

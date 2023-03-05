@@ -41,13 +41,14 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "6.3.0",
     "react-scripts": "5.0.1",
+    "redux-persist": "^6.0.0",
     "stylis": "4.1.1",
     "stylis-plugin-rtl": "2.1.1",
     "uuid": "8.3.2",
     "web-vitals": "2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start" ,
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

@@ -31,7 +31,7 @@ import Icon from "@mui/material/Icon";
 // Mysterious Tech Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
-import SoftInput from "components/SoftInput";
+// import SoftInput from "components/SoftInput";
 
 // Mysterious Tech Dashboard React examples
 import Breadcrumbs from "examples/Breadcrumbs";
@@ -60,6 +60,61 @@ import {
 import team2 from "assets/images/team-2.jpg";
 import logoSpotify from "assets/images/small-logos/logo-spotify.svg";
 import { loginActions } from "store/LogSlice";
+
+
+// import * as React from 'react';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import {useSelector } from 'react-redux'
+import { TFormActions } from "store/TForm";
+import { fetchTableData } from '../../../store/TableSlice'
+import { fetchInventoryData } from "../../../store/inventorySlice";
+export function SelectAutoWidth() {
+  // const [age, setAge] = useState('');
+  const dispatch=useDispatch()
+  const selected=useSelector(state=> state.tform.select)
+  const handleChange = (event) => {
+    // setAge(event.target.value);
+    dispatch(TFormActions.setSelect(event.target.value))
+    dispatch(fetchTableData())
+    dispatch(fetchInventoryData())
+  };
+
+  return (
+    <div>
+      <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel id="demo-simple-select-autowidth-label" sx={{fontSize:'15px', }}>Client</InputLabel>
+        <Select
+          labelId="demo-simple-select-autowidth-label"
+          id="demo-simple-select-autowidth"
+          value={selected}
+          onChange={handleChange}
+          autoWidth
+          label="client"
+        >
+          {/* <MenuItem value="">
+            <em>None</em>
+          </MenuItem> */}
+          <MenuItem value='Client_Sofabed'>Client_Sofabed</MenuItem>
+          <MenuItem value='Client_Jennifer'>Client_Jennifer</MenuItem>
+          <MenuItem value='Client_Jennihome'>Client_Jennihome</MenuItem>
+          {/* <MenuItem value={22}>Twenty one and a half</MenuItem> */}
+        </Select>
+      </FormControl>
+    </div>
+  );
+}
+
+
+
+
+
+
+
+
+
 
 function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
@@ -151,14 +206,15 @@ function DashboardNavbar({ absolute, light, isMini }) {
         </SoftBox>
         {isMini ? null : (
           <SoftBox sx={(theme) => navbarRow(theme, { isMini })}>
-            <SoftBox pr={1}>
-              <SoftInput
+           <SoftBox pr={1}>
+              {/* <SoftInput
                 placeholder="Type here..."
                 icon={{ component: "search", direction: "left" }}
-              />
+              /> */}
+              <SelectAutoWidth />
             </SoftBox>
             <SoftBox color={light ? "white" : "inherit"}>
-              <Link to="/authentication/sign-in">
+              {/* <Link to="/authentication/sign-in"> */}
                 <IconButton sx={navbarIconButton} size="small"
                 onClick={(e)=>{
                   signOut(auth)
@@ -180,7 +236,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                     Sign Out
                   </SoftTypography>
                 </IconButton>
-              </Link>
+              {/* </Link> */}
               <IconButton
                 size="small"
                 color="inherit"
@@ -234,3 +290,6 @@ DashboardNavbar.propTypes = {
 };
 
 export default DashboardNavbar;
+
+
+

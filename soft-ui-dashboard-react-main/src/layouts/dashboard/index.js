@@ -15,36 +15,37 @@ Coded by www.creative-tim.com
 
 // @mui material components
 import Grid from "@mui/material/Grid";
-import Icon from "@mui/material/Icon";
+// import Icon from "@mui/material/Icon";
+import Modal from 'components/Modal'
 
 // Mysterious Tech Dashboard React components
 import SoftBox from "components/SoftBox";
-import SoftTypography from "components/SoftTypography";
+// import SoftTypography from "components/SoftTypography";
 
 // Mysterious Tech Dashboard React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import MiniStatisticsCard from "examples/Cards/StatisticsCards/MiniStatisticsCard";
-import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
-import GradientLineChart from "examples/Charts/LineCharts/GradientLineChart";
+// import MiniStatisticsCard from "examples/Cards/StatisticsCards/MiniStatisticsCard";
+// import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
+// import GradientLineChart from "examples/Charts/LineCharts/GradientLineChart";
 
-// Mysterious Tech Dashboard React base styles
-import typography from "assets/theme/base/typography";
+// // Mysterious Tech Dashboard React base styles
+// import typography from "assets/theme/base/typography";
 
 // Dashboard layout components
 import BuildByDevelopers from "layouts/dashboard/components/BuildByDevelopers";
-import WorkWithTheRockets from "layouts/dashboard/components/WorkWithTheRockets";
-import Projects from "layouts/dashboard/components/Projects";
-import OrderOverview from "layouts/dashboard/components/OrderOverview";
+// import WorkWithTheRockets from "layouts/dashboard/components/WorkWithTheRockets";
+// import Projects from "layouts/dashboard/components/Projects";
+// import OrderOverview from "layouts/dashboard/components/OrderOverview";
 
 // Data
 import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
-import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData";
+// import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData";
 
 function Dashboard() {
-  const { size } = typography;
-  const { chart, items } = reportsBarChartData;
+  // const { size } = typography;
+  // const { chart, items } = reportsBarChartData;
 
   return (
     <DashboardLayout>

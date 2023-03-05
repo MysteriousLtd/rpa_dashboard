@@ -21,7 +21,7 @@ import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftButton from "components/SoftButton";
 import SoftInput from "components/SoftInput";
-import SoftBadge from "components/SoftBadge";
+// import SoftBadge from "components/SoftBadge";
 
 
 // Mysterious Tech Dashboard React examples
@@ -36,46 +36,72 @@ import PropTypes from 'prop-types'
 // import projectsTableData from "layouts/tables/data/projectsTableData";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchInventoryData  } from "../../store/inventorySlice";
+import { fetchInventoryData, updateVendor } from "../../store/inventorySlice";
+import { TFormActions } from "store/TForm";
 
 
-function OrderNumber({ number }) {
-  return (
-    <SoftBox display="flex" alignItems="center" px={1} py={0.5}>
-      {/* <SoftBox mr={2}>
+function VendorName({ name, edit }) {
+  if (edit) {
+    const [torderno, setTOrderno] = useState(name);
+    const dispatch = useDispatch()
+    useEffect(() => { dispatch(TFormActions.setInput1(torderno)) }, [torderno])
+    return (<SoftBox mb={0}>
+      <SoftInput type="text" value={torderno} onChange={(e) => setTOrderno(e.target.value)} />
+    </SoftBox>)
+  } else {
+    return (
+      <SoftBox display="flex" alignItems="center" px={1} py={0.5}>
+        {/* <SoftBox mr={2}>
         <SoftAvatar src={image} alt={name} size="sm" variant="rounded" />
       </SoftBox> */}
-      <SoftBox display="flex" flexDirection="column">
-        <SoftTypography variant="button" fontWeight="medium">
-          {number}
-        </SoftTypography>
-        {/* <SoftTypography variant="caption" color="secondary">
+        <SoftBox display="flex" flexDirection="column">
+          <SoftTypography variant="button" fontWeight="medium">
+            {name}
+          </SoftTypography>
+          {/* <SoftTypography variant="caption" color="secondary">
           {email}
         </SoftTypography> */}
+        </SoftBox>
       </SoftBox>
-    </SoftBox>
-  );
+    );
+  }
+
 }
 
-OrderNumber.propTypes = {
-  number: PropTypes.string,
+VendorName.propTypes = {
+  name: PropTypes.string,
+  edit: PropTypes.bool,
   //  email:PropTypes.string
 }
 
-function Period({ period }) {
-  return (
-    <SoftBox display="flex" flexDirection="column">
-      <SoftTypography variant="caption" fontWeight="medium" color="text">
-        {period} &nbsp;
-        {/* <SoftTypography variant="caption" color="secondary">
+function Vendorsku({ vendorsku, edit }) {
+
+  if (edit) {
+    const dispatch = useDispatch()
+    const [torderp, setTOrderp] = useState(vendorsku);
+    useEffect(() => {
+      dispatch(TFormActions.setInput2(torderp))
+    }, [torderp])
+    return <SoftBox mb={1}>
+      <SoftInput onChange={(e) => setTOrderp(e.target.value)} type="text" value={torderp} />
+    </SoftBox>
+  } else {
+    return (
+      <SoftBox display="flex" flexDirection="column">
+        <SoftTypography variant="caption" fontWeight="medium" color="text">
+          {vendorsku} &nbsp;
+          {/* <SoftTypography variant="caption" color="secondary">
           days
         </SoftTypography> */}
-      </SoftTypography>
-    </SoftBox>
-  );
+        </SoftTypography>
+      </SoftBox>
+    );
+  }
+
 }
-Period.propTypes = {
-  period: PropTypes.string
+Vendorsku.propTypes = {
+  vendorsku: PropTypes.string,
+  edit: PropTypes.bool,
 }
 
 function TimeStamp({ date }) {
@@ -95,33 +121,29 @@ TimeStamp.propTypes = {
   // time: PropTypes.string
 }
 
-const Row = () => {
-
-}
-
-
 function InventoryTable() {
   const dispatch = useDispatch();
-  const isPosted = useSelector(state => state.inventory.isPosted)
   const [edit, setEdit] = useState(false)
-  const [orderno, setOrderno] = useState('');
-  const [orderp, setOrderp] = useState('');
-  const [torderno, setTOrderno] = useState('');
-  const [torderp, setTOrderp] = useState('');
-  const [eIndex, setEIndex] = useState(null);
-  const user = useSelector(state => state.loginState.user)
+  const [eIndex, setEIndex] = useState(null)
+  
+  const isPosted = useSelector(state => state.inventory.isPosted)
+  const clientid = useSelector(state => state.tform.select)
 
-useEffect(() => {
-    dispatch(fetchInventoryData())
-  },[isPosted])  
+  useEffect(() => {
+    console.log(clientid)
+    dispatch(fetchInventoryData(clientid))
+  }, [isPosted, clientid])
   const table = useSelector(state => state.inventory.inventoryData)
   // const table=useSelector(state=>state.table.tableData)
   // const { columns: prCols, rows: prRows } = projectsTableData;
-  
-  // const isPosted = useSelector(state => state.table.isPosted)
-  
 
-  const ordersTableData = {
+  // const isPosted = useSelector(state => state.table.isPosted)
+  const update = psku => {
+    // console.log(typeof updateVendor(psku))
+    dispatch(updateVendor(psku))
+  }
+
+  const inventoryTableData = {
     columns: [
       { name: "productid", align: "center" },
       { name: "variantid", align: "center" },
@@ -146,6 +168,7 @@ useEffect(() => {
           <SoftTypography variant="caption" color="secondary" fontWeight="medium">
             {row.variantid}
           </SoftTypography>),
+
         'productname': <SoftTypography variant="caption" fontWeight='regular' >{row.productname}</SoftTypography>
         ,
         'productsku': (
@@ -154,20 +177,12 @@ useEffect(() => {
             {row.productsku}
           </SoftTypography>
         ),
-        'vendorname': (eIndex !== null && index === eIndex) ? (<SoftBox mb={1}>
-
-          <SoftInput type="text" value={torderno} />
-
-        </SoftBox>) : <OrderNumber number={row.vendorname} />
+        'vendorname': <VendorName name={row.vendorname} edit={edit && eIndex === index} />
         ,
-        'vendorsku': (eIndex !== null && index === eIndex) ? (<SoftBox mb={1}>
-
-          <SoftInput onChange={(e) => setTOrderp(e.target.value)} type="text" value={torderp} />
-
-        </SoftBox>) : <Period period={row.vendorsku} />
+        'vendorsku': <Vendorsku vendorsku={row.vendorsku} edit={edit && eIndex === index} />
 
         ,
-        'modifiedby':( 
+        'modifiedby': (
           <SoftTypography variant="caption" color="secondary" fontWeight="medium">
             {row.modified_by}
           </SoftTypography>),
@@ -177,35 +192,35 @@ useEffect(() => {
           mt={{ xs: 2, sm: 0 }}
           ml={{ xs: -1.5, sm: 0 }}>
 
-          {eIndex === index && (<SoftBox mr={1}><SoftButton variant="text" color="error"
+          {(edit && index === eIndex) && (<SoftBox mr={1}><SoftButton variant="text" color="error"
             onClick={() => {
               setEdit(false)
               setEIndex(null)
-              setTOrderno('');
-              setTOrderp(null);
+              // setTOrderno('');
+              // setTOrderp(null);
             }}>
             <Icon> cancel </Icon>
           </SoftButton></SoftBox>)}
 
-          <SoftButton variant="text" color="dark"
+          <SoftButton variant="text" color="dark" disabled={edit && index !== eIndex}
             onClick={() => {
 
               if (edit) {
                 setEdit(false)
                 setEIndex(null)
-                setTOrderno('');
-                setTOrderp(null);
-                // dispatch(updateOrder({}))
+                update(row.productsku)
               }
               else {
                 setEdit(true)
                 setEIndex(index)
-                setTOrderno(row.vendorname);
-                setTOrderp(row.vendorsku)
+                // setupid(row.productsku)
+                dispatch(TFormActions.setInput1(row.vendorname));
+                dispatch(TFormActions.setInput2(row.vendorname));
+                // setTOrderp(row.vendorsku)
               }
 
             }}>
-            <Icon>{eIndex === index ? 'update' : 'edit'}</Icon>
+            <Icon>{edit && index === eIndex ? 'update' : 'edit'}</Icon>
           </SoftButton>
 
 
@@ -216,63 +231,16 @@ useEffect(() => {
 
   };
 
-  const { columns, rows } = ordersTableData;
+  const { columns, rows } = inventoryTableData;
 
-
-  const placeOrder = async () => {
-    const article = {
-      "ClientID": "Client_Sofabed",
-      "OrderNumber": orderno,
-      "OrderPeriod": orderp,
-      "OrderCreatedBy": `${user.displayName}`
-    };
-    dispatch(postOrder(article))
-    setOrderno('');
-    setOrderp('');
-  }
   return (
     <DashboardLayout>
-      <DashboardNavbar />
-      <SoftBox py={3}>
-        <SoftBox mb={3}>
-          <Card>
-            <SoftBox pt={4} pb={3} px={3}>
-              <SoftBox component="form" role="form" >
-                <SoftBox mb={2}>
-                  <SoftBox mb={1} ml={0.5}>
-                    <SoftTypography component="label" variant="caption" fontWeight="bold" >
-                      Order Name
-                    </SoftTypography>
-                  </SoftBox>
-                  <SoftInput type="text" value={orderno} onChange={(e) => setOrderno(e.target.value)} placeholder="Order Name" />
-                </SoftBox>
-                <SoftBox mb={2}>
-                  <SoftBox mb={1} ml={0.5}>
-                    <SoftTypography component="label" variant="caption" fontWeight="bold" >
-                      Order Period (in days)
-                    </SoftTypography>
-                  </SoftBox>
-                  <SoftInput type="number" value={orderp} onChange={(e) => setOrderp(e.target.value)} placeholder="Order Period" />
-                </SoftBox>
-
-                <SoftBox mt={4} mb={1}>
-                  <SoftButton variant="gradient" color="dark" fullWidth onClick={placeOrder} disabled={(orderno === "" || orderp === '')}>
-                    Place Order
-                  </SoftButton>
-                </SoftBox>
-              </SoftBox>
-            </SoftBox>
-          </Card>
-
-        </SoftBox>
-      </SoftBox>
-
-
+      <DashboardNavbar show={true} />
       <SoftBox py={3}>
         <SoftBox mb={3}>
           <Card>
             <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-              <SoftTypography variant="h6">Orders table</SoftTypography>
+              <SoftTypography variant="h6">Inventory Table</SoftTypography>
             </SoftBox>
             <SoftBox
               sx={{
@@ -284,7 +252,7 @@ useEffect(() => {
                 },
               }}
             >
-              <Table columns={columns} rows={rows} edit={edit} />
+              <Table columns={columns} rows={rows} edit={edit} select={clientid} />
             </SoftBox>
           </Card>
         </SoftBox>

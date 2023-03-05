@@ -33,7 +33,7 @@ import PropTypes from 'prop-types'
 // Data
 // import authorsTableData from "layouts/tables/data/authorsTableData";
 // import projectsTableData from "layouts/tables/data/projectsTableData";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTableData, postOrder, updateOrder } from "../../store/TableSlice";
 import { TFormActions } from "store/TForm";
@@ -117,7 +117,6 @@ TimeStamp.propTypes = {
 
 
 function Tables() {
-  const table = useSelector(state => state.table.tableData)
   const [edit, setEdit] = useState(false);
   // const [torderno, setTOrderno]=useState('');
   // const [torderp, setTOrderp] = useState('')
@@ -130,12 +129,21 @@ function Tables() {
   // const { columns: prCols, rows: prRows } = projectsTableData;
   const dispatch = useDispatch();
   const isPosted = useSelector(state => state.table.isPosted)
+  const select = useSelector(state => state.tform.select)
   // const [inp1, setinp1] = useState(useSelector(state => state.tform.input1))
-
+  console.log(select)
+  
   useEffect(() => {
     dispatch(fetchTableData())
-  }, [isPosted])
- 
+    // table= useSelector(state => state.table.tableData)
+  }, [isPosted, select])
+  const table= useSelector(state => state.table.tableData)
+
+  
+  useEffect(()=>{
+    console.log(table)
+  },[table])
+   
 
   const update = ordernum => {
 
@@ -158,13 +166,13 @@ function Tables() {
       { name: "", align: "center" },
 
     ],
-
-    rows: table !== null ? table.map((row, index) => {
+    rows: (table !== null && table.length!==0) ? table.map((row, index) => {
       let date = new Date(row.ordercreatedtime)
+      let color = row.orderstatus === 'Order Created' ? 'success' : row.orderstatus === "New" ? 'info' : 'error';
       return {
         'number': <OrderNumber number={row.ordernumber} edit={index === eIndex} />,
         'period': <Period period={row.orderperiod} edit={index === eIndex} />,
-        'status': <SoftBadge variant="gradient" badgeContent={row.orderstatus} color="success" size="xs" container />
+        'status': <SoftBadge variant="gradient" badgeContent={row.orderstatus} color={color} size="xs" container />
         ,
         'remark': (
           <SoftTypography variant="caption" color="secondary" fontWeight="light">
@@ -186,6 +194,7 @@ function Tables() {
           alignItems="center"
           mt={{ xs: 2, sm: 0 }}
           ml={{ xs: -1.5, sm: 0 }}>
+
 
           {eIndex === index && (<SoftBox mr={1}><SoftButton variant="text" color="error"
             onClick={() => {
@@ -234,18 +243,14 @@ function Tables() {
 
   const { columns, rows } = ordersTableData;
 
-
-  const placeOrder = async () => {
-    const article = {
-      "ClientID": "Client_Sofabed",
-      "OrderNumber": orderno,
-      "OrderPeriod": orderp,
-      "OrderCreatedBy": `${user.displayName}`
-    };
+  // let client= useSelector(state=> state.tform.select)
+  const placeOrder = () => {
+    const article = {orderno ,  orderp};
     dispatch(postOrder(article))
     setOrderno('');
     setOrderp('');
   }
+  console.log(table)
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -300,7 +305,7 @@ function Tables() {
                 },
               }}
             >
-              {table !== [{}] ? <Table columns={columns} rows={rows} edit={edit} />
+              {table !== [{}] ? <Table columns={columns} rows={rows} edit={edit} select={select} />
                 : <SoftTypography align='center'>No data to show</SoftTypography>}
             </SoftBox>
           </Card>

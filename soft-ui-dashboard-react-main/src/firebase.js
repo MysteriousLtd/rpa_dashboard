@@ -12,6 +12,9 @@ import {
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+
+
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyB75oHqqpC4xbFTPQJkGxN25t_E20R4uEY",

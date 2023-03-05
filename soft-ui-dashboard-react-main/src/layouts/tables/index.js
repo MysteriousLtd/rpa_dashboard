@@ -157,13 +157,14 @@ function Tables() {
       { name: "period", align: "left" },
       { name: "status", align: "center" },
       { name: "remark", align: "center" },
-      { name: "created by", align: "center" },
+      { name: "modified by", align: "center" },
       { name: "timestamp", align: "center" },
       { name: "", align: "center" },
 
     ],
     rows: (table !== null && table.length!==0) ? table.map((row, index) => {
       let date = new Date(row.ordercreatedtime)
+      // let dateM = new Date(row.ordermodifiedtime)      
       let color = row.orderstatus === 'Order Created' ? 'success' : row.orderstatus === "New" ? 'info' : 'error';
       return {
         'number': <OrderNumber number={row.ordernumber} edit={index === eIndex} />,
@@ -176,9 +177,9 @@ function Tables() {
             {row.orderremark}
           </SoftTypography>
         ),
-        'created by': (
+        'modified by': (
           <SoftTypography variant="caption" color="secondary" fontWeight="medium">
-            {row.ordercreatedby}
+            {row.ordermodifiedby}
           </SoftTypography>
         )
         ,
@@ -202,7 +203,7 @@ function Tables() {
             <Icon> cancel </Icon>
           </SoftButton></SoftBox>)}
 
-          <SoftButton variant="text" color="dark" disabled={edit && index !== eIndex}
+          <SoftButton variant="text" color="dark" disabled={(edit && index !== eIndex) || (row.orderstatus).toLowerCase()!=='new'}
             onClick={() => {
 
               if (edit) {

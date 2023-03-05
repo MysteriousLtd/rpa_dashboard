@@ -149,7 +149,7 @@ function InventoryTable() {
       { name: "productsku", align: "center" },
       { name: "vendorname", align: "center" },
       { name: "vendorsku", align: "center" },
-      { name: "modifiedby", align: "center" },
+      { name: "modified by", align: "center" },
       { name: "", align: "center" },
 
     ],
@@ -180,7 +180,7 @@ function InventoryTable() {
         'vendorsku': <Vendorsku vendorsku={row.vendorsku} edit={edit && eIndex === index} />
 
         ,
-        'modifiedby': (
+        'modified by': (
           <SoftTypography variant="caption" color="secondary" fontWeight="medium">
             {row.modified_by}
           </SoftTypography>),

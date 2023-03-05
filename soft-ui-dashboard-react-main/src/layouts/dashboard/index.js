@@ -16,7 +16,7 @@ Coded by www.creative-tim.com
 // @mui material components
 import Grid from "@mui/material/Grid";
 // import Icon from "@mui/material/Icon";
-import Modal from 'components/Modal'
+// import Modal from 'components/Modal'
 
 // RPA Dashboard React components
 import SoftBox from "components/SoftBox";

@@ -255,7 +255,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
               >
                 <Icon>settings</Icon>
               </IconButton>
-              <IconButton
+              {/* <IconButton
                 size="small"
                 color="inherit"
                 sx={navbarIconButton}
@@ -266,7 +266,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
               >
                 <Icon className={light ? "text-white" : "text-dark"}>notifications</Icon>
               </IconButton>
-              {renderMenu()}
+              {renderMenu()} */}
             </SoftBox>
           </SoftBox>
         )}

@@ -41,12 +41,12 @@ function BuildByDevelopers() {
               <SoftTypography variant="h5" fontWeight="bold" gutterBottom>
                 RPA Dashboard
               </SoftTypography>
-              <SoftBox mb={6}>
+              {/* <SoftBox mb={6}>
                 <SoftTypography variant="body2" color="text">
                   From colors, cards, typography to complex elements, you will find the full
                   documentation.
                 </SoftTypography>
-              </SoftBox>
+              </SoftBox> */}
               <SoftTypography
                 component="a"
                 href="#"

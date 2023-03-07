@@ -20,7 +20,7 @@ import { Link } from "react-router-dom";
 
 import { loginActions } from "../../../store/LogSlice";
 import {auth,  createUserWithEmailAndPassword , updateProfile} from '../../../firebase'
-
+import { toastActions } from "store/toastSlice";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -56,8 +56,10 @@ function SignUp() {
        createUserWithEmailAndPassword(auth, email, password)
     // returns  an auth object after a successful authentication
     // userAuth.user contains all our user details
-      .then((userAuth) => {
-        updateProfile(userAuth.user, {displayName:name}).then(() =>
+    .then((userAuth)=>{
+      console.log(userAuth)
+      // if((res.data.status).toLowerCase()==='success'){
+         updateProfile(userAuth.user, {displayName:name}).then(() =>{
         // store the user's information in the redux state
         dispatch(
           loginActions.LogIn({
@@ -65,15 +67,12 @@ function SignUp() {
             uid: userAuth.user.uid,
             displayName: name,
             photoUrl: userAuth.user.photoURL,
-          })
-
-        ))
-      
-      })
-// display the error if any
-      .catch((err) => {
-        alert(err);
-      });
+          }))
+          dispatch(toastActions.toastSuccess('Account Created Successfully'));
+        })
+  }).catch((err)=>{
+      dispatch(toastActions.toastError(err.message))
+  })
       setisCorrPC(true)
     }
     else{

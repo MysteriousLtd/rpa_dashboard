@@ -15,9 +15,10 @@ Coded by www.creative-tim.com
 // import EnhancedTable from "examples/CustomTable/Table";
 import { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Snackbar, Alert } from "@mui/material";
 
 // react-router components
-import { Routes, Route, Navigate , useLocation, Link } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation, Link } from "react-router-dom";
 
 // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
@@ -55,6 +56,7 @@ import SignUp from "layouts/authentication/sign-up";
 import { auth, onAuthStateChanged } from "./firebase";
 import { loginActions } from "./store/LogSlice";
 import { getAuth } from "firebase/auth";
+import { toastActions } from "store/toastSlice";
 
 
 
@@ -63,31 +65,50 @@ export default function App() {
   const { miniSidenav, direction, layout, openConfigurator, sidenavColor } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
-  const { pathname } = useLocation();
-  const dispatchR= useDispatch()
-  const isLoggedIn = useSelector(state=> state.loginState.isLoggedIn)
+  // const { pathname } = useLocation();
+  const dispatchR = useDispatch()
+  const { message, severity, open } = useSelector(state => state.toast)
+  const isLoggedIn = useSelector(state => state.loginState.isLoggedIn)
   // const navigate=useNavigate()
-  const LoggedInUser=()=>{
-  
-      const user= onAuthStateChanged(auth, (currUser)=>{
-    if(currUser && currUser.displayName){
+  const LoggedInUser = () => {
+onAuthStateChanged(auth, (currUser) => {
+      if (currUser && currUser.displayName) {
         return dispatchR(loginActions.LogIn({
           email: currUser.email,
           uid: currUser.uid,
           displayName: currUser.displayName,
           photoUrl: currUser.photoURL,
         }))
-    }
-  } )
-    
-   
-    
+      }
+    })
+
+    // const handleClose = (event, reason) => {
+    //   if (reason === 'clickaway') {
+    //     return;
+    //   }
+    // };
   }
+  const closeToast=()=>{
+    dispatchR(toastActions.closeToast())
+  }
+  const toast = () => {
+    return <Snackbar open={open} autoHideDuration={4000} onClose={closeToast}>
+    <Alert onClose={closeToast} severity={severity} sx={{ width: '100%' }}>
+      {message}
+    </Alert>
+  </Snackbar>
+      
+    }
+    //* // onClose={handleClose}
+     /* <Alert onClose={closeToast} variant='filled' severity={severity} sx={{ width: '100%' }}>
+        {message} // action={action}
+      </Alert> */ 
+
   // const history= useHistory()
 
-  useEffect(() =>{
+  useEffect(() => {
     LoggedInUser()
-  },[isLoggedIn])
+  }, [isLoggedIn])
 
 
   // Cache for the rtl
@@ -169,7 +190,7 @@ export default function App() {
       </Icon>
     </SoftBox>
   );
-  
+
   return direction === "rtl" ? (
     <CacheProvider value={rtlCache}>
       <ThemeProvider theme={themeRTL}>
@@ -180,7 +201,7 @@ export default function App() {
               color={sidenavColor}
               brand={brand}
               brandName="Dashboard"
-              routes={routes.slice(0,3)}
+              routes={routes.slice(0, 3)}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
             />
@@ -190,9 +211,9 @@ export default function App() {
         )}
         {layout === "vr" && <Configurator />}
         <Routes>
-          {getRoutes(routes.slice(0,3))}
+          {getRoutes(routes.slice(0, 3))}
           {isLoggedIn && (<><Route path="*" element={<Navigate to="/dashboard" />} />
-          <Route path="/product-inventory" element={<Navigate to="/product-inventory" />} />
+            <Route path="/product-inventory" element={<Navigate to="/product-inventory" />} />
           </>)}
         </Routes>
 
@@ -207,7 +228,7 @@ export default function App() {
             color={sidenavColor}
             brand={brand}
             brandName="Dashboard"
-            routes={routes.slice(0,3)}
+            routes={routes.slice(0, 3)}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
@@ -215,22 +236,24 @@ export default function App() {
           {configsButton}
         </>
       )}
-      
+
       {layout === "vr" && <Configurator />}
+      {open && toast()}
       <Routes>
         {/* {console.log(LoggedInUser)} */}
-        {isLoggedIn ? getRoutes(routes.slice(0,3)): getRoutes(routes.slice(3)) }
-        { !isLoggedIn?<>
-                <Route path='*' element={<Navigate to='/authentication/sign-in'/>} /> 
-                <Route path='/authentication/sign-up' element={<SignUp />} />
+        {isLoggedIn ? getRoutes(routes.slice(0, 3)) : getRoutes(routes.slice(3))}
+        {!isLoggedIn ? <>
+          <Route path='*' element={<Navigate to='/authentication/sign-in' />} />
+          <Route path='/authentication/sign-up' element={<SignUp />} />
         </>
-        : <>
-          <Route path='/guardian-order' element={<Navigate to='/guardian-order' />} /> 
-          <Route path='/product-inventory' element={<Navigate to='/product-inventory' />} /> 
-          <Route path='*' element={<Navigate to='/dashboard' />} /> 
-         </>
+          : <>
+            <Route path='/guardian-order' element={<Navigate to='/guardian-order' />} />
+            <Route path='/product-inventory' element={<Navigate to='/product-inventory' />} />
+            <Route path='*' element={<Navigate to='/dashboard' />} />
+          </>
         }
       </Routes>
+     
     </ThemeProvider>
   );
 }

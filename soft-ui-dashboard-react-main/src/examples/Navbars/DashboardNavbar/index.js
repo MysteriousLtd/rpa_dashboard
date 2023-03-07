@@ -71,6 +71,7 @@ import {useSelector } from 'react-redux'
 import { TFormActions } from "store/TForm";
 import { fetchTableData } from '../../../store/TableSlice'
 import { fetchInventoryData } from "../../../store/inventorySlice";
+import { toastActions } from "store/toastSlice";
 export function SelectAutoWidth() {
   // const [age, setAge] = useState('');
   const dispatch=useDispatch()
@@ -78,6 +79,7 @@ export function SelectAutoWidth() {
   const handleChange = (event) => {
     // setAge(event.target.value);
     dispatch(TFormActions.setSelect(event.target.value))
+    dispatch(toastActions.toastSelect(event.target.value))
     dispatch(fetchTableData())
     dispatch(fetchInventoryData())
   };

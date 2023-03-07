@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios"
+import { toastActions } from "./toastSlice";
 // import { BaseThunkAPI } from "@reduxjs/toolkit/dist/createAsyncThunk";
 
 axios.defaults.baseURL = "http://34.235.34.12:7001/api/v1"
@@ -29,7 +30,6 @@ export const updateOrder = createAsyncThunk(
     async (ordernum, APIThunk) => {
         const { tform, loginState } = APIThunk.getState()
 
-        console.log(tform, loginState, ordernum)
         await axios.put(`/orders/guardian/${tform.select}/${ordernum}`,
             {
                 "OrderNumber": tform.input1,
@@ -37,6 +37,15 @@ export const updateOrder = createAsyncThunk(
                 "OrderModifiedBy": loginState.user.displayName
             }, {
             headers: { 'Content-Type': 'application/json' }
+        }).then((res)=>{
+            if((res.data.status).toLowerCase()==='success'){
+                APIThunk.dispatch(toastActions.toastSuccess(res.data.message))
+                APIThunk.dispatch(fetchTableData)
+            }else{
+                APIThunk.dispatch(toastActions.toastWarning(`${res.data.status} :`, res.data.message))
+            } 
+        }).catch((err)=>{
+            APIThunk.dispatch(toastActions.toastError(err.message))
         })
 
 
@@ -52,12 +61,21 @@ export const postOrder = createAsyncThunk(
             "ClientID": tform.select,
             "OrderNumber": article.orderno,
             "OrderPeriod": article.orderp,
-            "OrderCreatedBy": "Ann"
+            "OrderCreatedBy": loginState.user.displayName
         }, {
             headers: {
                 'content-type': 'application/json',
                 // 'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJhZG1pbiIsImlhdCI6MTY3NzI2MDYzOCwiZXhwIjoxNjc3MjY0MjM4fQ.2k3DXrUW0EhTXnWMIVcSd8EbxtYCcCV3ejFQimpoTlA'
             }
+        }).then((res)=>{
+            if((res.data.status).toLowerCase()==='success'){
+                APIThunk.dispatch(toastActions.toastSuccess(res.data.message))
+                APIThunk.dispatch(fetchTableData)
+            }else{
+                APIThunk.dispatch(toastActions.toastWarning(`${res.data.status} :`, res.data.message))
+            } 
+        }).catch((err)=>{
+            APIThunk.dispatch(toastActions.toastError(err.message))
         })
     }
 )

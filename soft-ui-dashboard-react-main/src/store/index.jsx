@@ -9,6 +9,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import TForm from "./TForm";
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk'
+import toastSlice from "./toastSlice";
 // import { middleware } from "stylis";
 // import { curryGetDefaultMiddleware, getDefaultMiddleware } from "@reduxjs/toolkit/dist/getDefaultMiddleware";
 
@@ -34,7 +35,11 @@ const rootReducer = combineReducers({
     loginState: persistReducer(loginPeristConfig ,logSlice.reducer),
     table: TableSlice.reducer,
     inventory: InventorySlice.reducer,
-    tform: persistReducer(formPeristConfig, TForm.reducer)
+    tform: persistReducer(formPeristConfig, TForm.reducer),
+    toast: persistReducer({
+        key: 'toast',
+        storage
+    },toastSlice.reducer)
 })
 
 // const persistedReducer = persistReducer(persistConfig, rootReducer)

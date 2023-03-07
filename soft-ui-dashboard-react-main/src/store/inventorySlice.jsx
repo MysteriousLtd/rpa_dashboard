@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { toastActions } from "./toastSlice";
 import axios from "axios";
 
 axios.defaults.baseURL = 'http://34.235.34.12:7001/api/v1'
@@ -23,6 +24,7 @@ export const updateVendor = createAsyncThunk(
     'inventory/updateVendor',
      async ( psku , ThunkAPI ) => {
         const { tform, loginState } = ThunkAPI.getState();
+         
          await axios.put('/inventory/products',
             {
                 "ClientID": tform.select ,
@@ -33,8 +35,17 @@ export const updateVendor = createAsyncThunk(
         }
         , {
             headers: { 'Content-Type': 'application/json' }
+        }).then((res)=>{
+            if((res.data.status).toLowerCase()==='success'){
+                ThunkAPI.dispatch(toastActions.toastSuccess(res.data.message))
+                ThunkAPI.dispatch(fetchInventoryData)
+            }else{
+                ThunkAPI.dispatch(toastActions.toastWarning(`${res.data.status} :`, res.data.message))
+            } 
+        }).catch((err)=>{
+            ThunkAPI.dispatch(toastActions.toastError(err.message))
         })
-    }
+     }
 )
 
 // export const postOrder = createAsyncThunk(

@@ -18,7 +18,7 @@ import { auth, signInWithEmailAndPassword } from '../../../firebase'
 // react-router-dom components
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
+import { toastActions } from "store/toastSlice";
 // @mui material components
 import Switch from "@mui/material/Switch";
 
@@ -46,21 +46,25 @@ function SignIn() {
     signInWithEmailAndPassword(auth, email, password)
       // returns  an auth object after a successful authentication
       // userAuth.user contains all our user details
-      .then((userAuth) => {
-        // store the user's information in the redux state
-        dispatch(
-          loginActions.LogIn({
-            email: userAuth.user.email,
-            uid: userAuth.user.uid,
-            displayName: userAuth.user.displayName,
-            photoUrl: userAuth.user.photoURL,
-          })
-        );
-      })
-      // display the error if any
-      .catch((err) => {
-        alert(err);
-      });
+      .then((userAuth)=>{
+        console.log(userAuth)
+        // if((res.data.status).toLowerCase()==='success'){
+            dispatch(toastActions.toastSuccess('Logged in successfully'));
+            dispatch(
+              loginActions.LogIn({
+                email: userAuth.user.email,
+                uid: userAuth.user.uid,
+                displayName: userAuth.user.displayName,
+                photoUrl: userAuth.user.photoURL,
+              })
+            );
+        // }else{
+        //     APIThunk.dispatch(toastActions.toastWarning(`${res.data.status} :`, res.data.message))
+        // } 
+    }).catch((err)=>{
+        dispatch(toastActions.toastError(err.message))
+    })
+      
   }
   
   return (

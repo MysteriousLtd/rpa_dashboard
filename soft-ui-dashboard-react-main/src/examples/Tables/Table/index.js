@@ -71,10 +71,11 @@ function Table({ columns, rows, edit }) {
     let pl;
     let pr;
 
-    if (key === 0) {
-      pl = 3;
-      pr = 3;
-    } else if (key === tcols.length - 1) {
+    // if (key === 0) {
+    //   pl = 3;
+    //   pr = 3;
+    // } else 
+    if (key === tcols.length - 1) {
       pl = 3;
       pr = 3;
     } else {
@@ -87,14 +88,15 @@ function Table({ columns, rows, edit }) {
         key={name}
         component="th"
         width={width || "auto"}
-        pt={1.5}
-        pb={1.25}
-        pl={align === "left" ? pl : 3}
-        pr={align === "right" ? pr : 3}
+        pt={0.5}
+        pb={0.5}
+        pl={align === "left" ? pl : 0.5}
+        pr={align === "right" ? pr : 0.5}
         textAlign={align}
         fontSize={size.xxs}
         fontWeight={fontWeightBold}
-        color="secondary"
+        // variant="h4"
+        color="black"
         opacity={0.7}
         borderBottom={`${borderWidth[1]} solid ${light.main}`}
       >
@@ -123,7 +125,7 @@ function Table({ columns, rows, edit }) {
             p={1}
             borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
           >
-            <SoftBox text={'center'} py={0.5} px={1}>
+            <SoftBox text={'center'} py={0.5} px={0.5}>
               {/* <SoftBox mr={2}>
                 <SoftAvatar src={row[name][0]} name={row[name][1]} variant="rounded" size="sm" />
               </SoftBox> */}
@@ -138,7 +140,9 @@ function Table({ columns, rows, edit }) {
           <SoftBox
             key={name}
             component="td"
-            p={1}
+            px={0.5}
+            py={0.5}
+            mb={0.5}
             textAlign={align}
             borderBottom={row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null}
           >

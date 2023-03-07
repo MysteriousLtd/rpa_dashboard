@@ -50,12 +50,12 @@ function VendorName({ name, edit }) {
     </SoftBox>)
   } else {
     return (
-      <SoftBox display="flex" alignItems="center" px={1} py={0.5}>
+      <SoftBox display="flex" alignItems="center" px={0} py={0} sx={{maxWidth: '175px'}}>
         {/* <SoftBox mr={2}>
         <SoftAvatar src={image} alt={name} size="sm" variant="rounded" />
       </SoftBox> */}
         <SoftBox display="flex" flexDirection="column">
-          <SoftTypography variant="button" fontWeight="medium">
+          <SoftTypography variant="caption" fontWeight="medium">
             {name}
           </SoftTypography>
           {/* <SoftTypography variant="caption" color="secondary">
@@ -82,7 +82,7 @@ function Vendorsku({ vendorsku, edit }) {
     useEffect(() => {
       dispatch(TFormActions.setInput2(torderp))
     }, [torderp])
-    return <SoftBox mb={1}>
+    return <SoftBox mb={1} sx={{maxWidth:'250px'}}>
       <SoftInput onChange={(e) => setTOrderp(e.target.value)} type="text" value={torderp} />
     </SoftBox>
   } else {
@@ -106,7 +106,7 @@ Vendorsku.propTypes = {
 
 function TimeStamp({ date }) {
   return (
-    <SoftBox display="flex" flexDirection="column" px={1} py={0}>
+    <SoftBox display="flex" flexDirection="column" px={0} py={0}>
       <SoftTypography variant="caption" fontWeight="medium" color="text">
         {date}
       </SoftTypography>
@@ -125,7 +125,7 @@ function InventoryTable() {
   const dispatch = useDispatch();
   const [edit, setEdit] = useState(false)
   const [eIndex, setEIndex] = useState(null)
-  
+
   const isPosted = useSelector(state => state.inventory.isPosted)
   const clientid = useSelector(state => state.tform.select)
 
@@ -143,10 +143,8 @@ function InventoryTable() {
 
   const inventoryTableData = {
     columns: [
-      { name: "productid", align: "center" },
-      { name: "variantid", align: "center" },
-      { name: "productname", align: "center" },
-      { name: "productsku", align: "center" },
+      { name: "productid variantid", align: "center" },
+      { name: "productname productsku", align: "center" },
       { name: "vendorname", align: "center" },
       { name: "vendorsku", align: "center" },
       { name: "modified by", align: "center" },
@@ -157,37 +155,53 @@ function InventoryTable() {
     rows: table !== null ? table.map((row, index) => {
 
       return {
-        'productid': (
-          <SoftTypography variant="caption" color="secondary" fontWeight="medium">
-            {row.productid}
-          </SoftTypography>
-        ),
-        'variantid': (
-          <SoftTypography variant="caption" color="secondary" fontWeight="medium">
-            {row.variantid}
-          </SoftTypography>),
+        'productid variantid': (
+          <SoftBox display="flex" flexDirection="column" px={1} py={0}>
+            <SoftTypography variant="caption" color="secondary" fontWeight="medium">
+              {row.productid+'\n'}
+            </SoftTypography>
+            <SoftTypography variant="caption" color="secondary" fontWeight="medium">
+              {row.variantid}
+            </SoftTypography>
+            </SoftBox>
 
-        'productname': <SoftTypography variant="caption" fontWeight='regular' >{row.productname}</SoftTypography>
-        ,
-        'productsku': (
-          <SoftTypography variant="caption" color="secondary" fontWeight="light">
+        ),
+
+        'productname productsku': (
+          <SoftBox display="flex" flexDirection="column" px={0} py={0}>
+            <SoftTypography variant="caption" fontWeight='regular' >
+              {row.productname}
+              </SoftTypography>
+            <SoftTypography variant="caption" color="dark" fontWeight="medium">
             {/* [false,"light","regular","medium","bold"] */}
             {row.productsku}
           </SoftTypography>
+          </SoftBox>
         ),
+        
         'vendorname': <VendorName name={row.vendorname} edit={edit && eIndex === index} />
         ,
         'vendorsku': <Vendorsku vendorsku={row.vendorsku} edit={edit && eIndex === index} />
 
         ,
         'modified by': (
-          <SoftTypography variant="caption" color="secondary" fontWeight="medium">
+          <SoftBox display="flex" flexDirection="column" px={1} py={0}>
+            <SoftTypography variant="caption" color="secondary" fontWeight="bold">
             {row.modified_by}
-          </SoftTypography>),
+          </SoftTypography>
+          <SoftTypography variant="caption" color="secondary" fontWeight="medium">
+            {new Date(row.modified_at).toLocaleDateString()}
+          </SoftTypography>
+          <SoftTypography variant="caption" color="secondary" fontWeight="regular">
+            {new Date(row.modified_at).toLocaleTimeString()}
+          </SoftTypography>
+          </SoftBox>
+          ),
         "": (<SoftBox
           display="flex"
           alignItems="center"
-          mt={{ xs: 2, sm: 0 }}
+
+          my={{ xs: 2, sm: 0 }}
           ml={{ xs: -1.5, sm: 0 }}>
 
           {(edit && index === eIndex) && (<SoftBox mr={1}><SoftButton variant="text" color="error"
@@ -234,10 +248,10 @@ function InventoryTable() {
   return (
     <DashboardLayout>
       <DashboardNavbar show={true} />
-      <SoftBox py={3}>
-        <SoftBox mb={3}>
+      <SoftBox py={1}>
+        <SoftBox mb={1}>
           <Card>
-            <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
+            <SoftBox display="flex" justifyContent="space-around" alignItems="center" p={3}>
               <SoftTypography variant="h6">Inventory Table</SoftTypography>
             </SoftBox>
             <SoftBox

@@ -40,7 +40,6 @@ import { TFormActions } from "store/TForm";
 
 
 function OrderNumber({ number, edit }) {
-
   if (edit) {
     const [torderno, setTOrderno] = useState(number);
     const dispatch = useDispatch()
@@ -49,12 +48,12 @@ function OrderNumber({ number, edit }) {
       <SoftInput type="text" value={torderno} onChange={(e) => { setTOrderno(e.target.value); }} />
     </SoftBox>))
   } else {
-    return (<SoftBox display="flex" alignItems="center" px={1} py={0.5}>
+    return (<SoftBox display="flex" alignItems="center" ml={1} px={1} py={0.5}>
       {/* <SoftBox mr={2}>
         <SoftAvatar src={image} alt={name} size="sm" variant="rounded" />
       </SoftBox> */}
       <SoftBox display="flex" flexDirection="column">
-        <SoftTypography variant="button" fontWeight="medium">
+        <SoftTypography variant="subtitle2"  fontWeight="medium">
           {number}
         </SoftTypography>
         {/* <SoftTypography variant="caption" color="secondary">
@@ -100,7 +99,7 @@ Period.propTypes = {
 
 function TimeStamp({ date, time }) {
   return (
-    <SoftBox display="flex" flexDirection="column" px={1} py={0}>
+    <SoftBox display="flex" flexDirection="column">
       <SoftTypography variant="caption" fontWeight="medium" color="text">
         {date}
       </SoftTypography>
@@ -138,10 +137,6 @@ function Tables() {
   }, [isPosted, select])
   const table= useSelector(state => state.table.tableData)
 
-  
-
-   
-
   const update = ordernum => {
 
     // let inp1=useSelector(state=>state.tform.input1)
@@ -158,7 +153,7 @@ function Tables() {
       { name: "status", align: "center" },
       { name: "remark", align: "center" },
       { name: "modified by", align: "center" },
-      { name: "timestamp", align: "center" },
+      // { name: "timestamp", align: "center" },
       { name: "", align: "center" },
 
     ],
@@ -168,28 +163,32 @@ function Tables() {
       let color = row.orderstatus === 'Order Created' ? 'success' : row.orderstatus === "New" ? 'info' : 'error';
       return {
         'number': <OrderNumber number={row.ordernumber} edit={index === eIndex} />,
-        'period': <Period period={row.orderperiod} edit={index === eIndex} />,
+        'period': <Period period={row.orderperiod} edit={index === eIndex} sx={!edit && {maxWidth:'50px',}} />,
         'status': <SoftBadge variant="gradient" badgeContent={row.orderstatus} color={color} size="xs" container />
         ,
         'remark': (
-          <SoftTypography variant="caption" color="secondary" fontWeight="light">
+          <SoftBox  sx={{maxWidth:'200px',}}>
+          <SoftTypography variant="caption" color="dark" fontWeight="light">
             {/* [false,"light","regular","medium","bold"] */}
             {row.orderremark}
-          </SoftTypography>
+          </SoftTypography></SoftBox>
         ),
         'modified by': (
+          <SoftBox>
           <SoftTypography variant="caption" color="secondary" fontWeight="medium">
             {row.ordermodifiedby}
           </SoftTypography>
+          <TimeStamp date={date.toLocaleDateString()} time={date.toLocaleTimeString()} />
+          </SoftBox>
         )
         ,
-        'timestamp': (
-          <TimeStamp date={date.toLocaleDateString()} time={date.toLocaleTimeString()} />
-        ),
+        // 'timestamp': (
+          
+        // ),
         '': (<SoftBox
           display="flex"
           alignItems="center"
-          mt={{ xs: 2, sm: 0 }}
+          my={{ xs: 2, sm: 0 }}
           ml={{ xs: -1.5, sm: 0 }}>
 
 
@@ -207,17 +206,8 @@ function Tables() {
             onClick={() => {
 
               if (edit) {
-
                 update(table[eIndex].ordernumber)
                 setEdit(false)
-
-
-                // setTOrderno('');
-                // setTOrderp(null);
-
-
-
-
               }
               else {
                 setEdit(true)
@@ -229,8 +219,6 @@ function Tables() {
             }}>
             <Icon>{eIndex === index ? 'update' : 'edit'}</Icon>
           </SoftButton>
-
-
         </SoftBox>)
       }
     }
@@ -253,10 +241,10 @@ function Tables() {
       <SoftBox py={3}>
         <SoftBox mb={3}>
           <Card>
-            <SoftBox pt={4} pb={3} px={3}>
+            <SoftBox pt={3} pb={3} px={3}>
               <SoftBox component="form" role="form" >
                 <SoftBox mb={2}>
-                  <SoftBox mb={1} ml={0.5}>
+                  <SoftBox mb={1} ml={0}>
                     <SoftTypography component="label" variant="caption" fontWeight="bold" >
                       Order Name
                     </SoftTypography>
@@ -264,7 +252,7 @@ function Tables() {
                   <SoftInput type="text" value={orderno} onChange={(e) => setOrderno(e.target.value)} placeholder="Order Name" />
                 </SoftBox>
                 <SoftBox mb={2}>
-                  <SoftBox mb={1} ml={0.5}>
+                  <SoftBox mb={1} ml={0}>
                     <SoftTypography component="label" variant="caption" fontWeight="bold" >
                       Order Period (in days)
                     </SoftTypography>
@@ -272,7 +260,7 @@ function Tables() {
                   <SoftInput type="number" value={orderp} onChange={(e) => setOrderp(e.target.value)} placeholder="Order Period" />
                 </SoftBox>
 
-                <SoftBox mt={4} mb={1}>
+                <SoftBox mt={2} mb={1}>
                   <SoftButton variant="gradient" color="dark" fullWidth onClick={placeOrder} disabled={(orderno === "" || orderp === '')}>
                     Place Order
                   </SoftButton>
@@ -285,10 +273,10 @@ function Tables() {
       </SoftBox>
 
 
-      <SoftBox py={3}>
+      <SoftBox py={2}>
         <SoftBox mb={3}>
           <Card>
-            <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
+            <SoftBox display="flex" justifyContent="space-around" alignItems="center" p={3}>
               <SoftTypography variant="h6">Orders table</SoftTypography>
             </SoftBox>
             <SoftBox

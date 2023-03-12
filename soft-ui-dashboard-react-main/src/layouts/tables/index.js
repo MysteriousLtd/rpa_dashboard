@@ -81,7 +81,7 @@ function Period({ period, edit }) {
     </SoftBox>)
   } else {
     return (<SoftBox display="flex" flexDirection="column">
-      <SoftTypography variant="caption" fontWeight="medium" color="text">
+      <SoftTypography variant="subtitle2" fontWeight="medium" color="dark">
         {period} &nbsp;
         <SoftTypography variant="caption" color="secondary">
           days
@@ -100,7 +100,7 @@ Period.propTypes = {
 function TimeStamp({ date, time }) {
   return (
     <SoftBox display="flex" flexDirection="column">
-      <SoftTypography variant="caption" fontWeight="medium" color="text">
+      <SoftTypography variant="subtitle2" fontWeight="medium" color="text">
         {date}
       </SoftTypography>
       <SoftTypography variant="caption" color="secondary">
@@ -138,18 +138,15 @@ function Tables() {
   const table= useSelector(state => state.table.tableData)
 
   const update = ordernum => {
-
     // let inp1=useSelector(state=>state.tform.input1)
     dispatch(updateOrder(ordernum));
     setEIndex(null)
   }
 
-
-
   const ordersTableData = {
     columns: [
-      { name: "number", align: "left" },
-      { name: "period", align: "left" },
+      { name: "order number", align: "center" },
+      { name: "period", align: "center" },
       { name: "status", align: "center" },
       { name: "remark", align: "center" },
       { name: "modified by", align: "center" },
@@ -162,20 +159,20 @@ function Tables() {
       // let dateM = new Date(row.ordermodifiedtime)      
       let color = row.orderstatus === 'Order Created' ? 'success' : row.orderstatus === "New" ? 'info' : 'error';
       return {
-        'number': <OrderNumber number={row.ordernumber} edit={index === eIndex} />,
+        'order number': <OrderNumber number={row.ordernumber} edit={index === eIndex} />,
         'period': <Period period={row.orderperiod} edit={index === eIndex} sx={!edit && {maxWidth:'50px',}} />,
-        'status': <SoftBadge variant="gradient" badgeContent={row.orderstatus} color={color} size="xs" container />
+        'status': <SoftBadge variant="gradient" badgeContent={row.orderstatus} color={color} size="xxs" container />
         ,
         'remark': (
-          <SoftBox  sx={{maxWidth:'200px',}}>
-          <SoftTypography variant="caption" color="dark" fontWeight="light">
+          <SoftBox  sx={{maxWidth:'250px',}}>
+          <SoftTypography variant="subtitle2" color="dark" fontWeight="light">
             {/* [false,"light","regular","medium","bold"] */}
             {row.orderremark}
           </SoftTypography></SoftBox>
         ),
         'modified by': (
           <SoftBox>
-          <SoftTypography variant="caption" color="secondary" fontWeight="medium">
+          <SoftTypography variant="subtitle2" color="dark" fontWeight="medium">
             {row.ordermodifiedby}
           </SoftTypography>
           <TimeStamp date={date.toLocaleDateString()} time={date.toLocaleTimeString()} />

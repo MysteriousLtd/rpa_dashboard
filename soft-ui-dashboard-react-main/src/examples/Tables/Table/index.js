@@ -64,7 +64,6 @@ function Table({ columns, rows, edit }) {
   //     setReload(true)
   //   }
   //   window.location.reload(reload)
-    
   // },[select])
   
   const renderColumns = useMemo(()=>tcols.map(({ name, align, width }, key) => {
@@ -93,18 +92,17 @@ function Table({ columns, rows, edit }) {
         pl={align === "left" ? pl : 0.5}
         pr={align === "right" ? pr : 0.5}
         textAlign={align}
-        fontSize={size.xxs}
+        fontSize={size.sm}
         fontWeight={fontWeightBold}
         // variant="h4"
-        color="black"
-        opacity={0.7}
+        color="#000"
+        opacity={1} 
         borderBottom={`${borderWidth[1]} solid ${light.main}`}
       >
         {name.toUpperCase()}
       </SoftBox>
     );
-  }),[tcols,select,edit])
-  ;
+  }),[tcols,select,edit]);
 
   // const reload= useCallback(()=>{
   //   window.location.reload(false);

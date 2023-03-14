@@ -14,7 +14,7 @@ Coded by www.creative-tim.com
 */
 
 import { useState } from "react";
-import { auth, signInWithEmailAndPassword } from '../../../firebase'
+import { auth, signInWithEmailAndPassword } from '../../../utils/firebase'
 // react-router-dom components
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";

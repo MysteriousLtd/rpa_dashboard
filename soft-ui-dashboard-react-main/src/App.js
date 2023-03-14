@@ -2,14 +2,10 @@
 =========================================================
 * RPA Dashboard React - v4.0.0
 =========================================================
-
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
 * Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
 Coded by www.creative-tim.com
-
  =========================================================
-
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 // import EnhancedTable from "examples/CustomTable/Table";
@@ -42,7 +38,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
 // RPA Dashboard React routes
-import routes from "routes";
+import routes from "utils/routes";
 
 // RPA Dashboard React contexts
 import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from "context";
@@ -53,9 +49,9 @@ import brand from "assets/images/logo-ct.png";
 import SignUp from "layouts/authentication/sign-up";
 // import { element } from "prop-types";
 // import Dashboard from "layouts/dashboard";
-import { auth, onAuthStateChanged } from "./firebase";
+import { auth, onAuthStateChanged } from "utils/firebase";
 import { loginActions } from "./store/LogSlice";
-import { getAuth } from "firebase/auth";
+// import { getAuth } from "firebase/auth";
 import { toastActions } from "store/toastSlice";
 
 
@@ -201,7 +197,7 @@ onAuthStateChanged(auth, (currUser) => {
               color={sidenavColor}
               brand={brand}
               brandName="Dashboard"
-              routes={routes.slice(0, 3)}
+              routes={routes.slice(0, 4)}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
             />
@@ -211,7 +207,7 @@ onAuthStateChanged(auth, (currUser) => {
         )}
         {layout === "vr" && <Configurator />}
         <Routes>
-          {getRoutes(routes.slice(0, 3))}
+          {getRoutes(routes.slice(0, 4))}
           {isLoggedIn && (<><Route path="*" element={<Navigate to="/dashboard" />} />
             <Route path="/product-inventory" element={<Navigate to="/product-inventory" />} />
           </>)}
@@ -228,7 +224,7 @@ onAuthStateChanged(auth, (currUser) => {
             color={sidenavColor}
             brand={brand}
             brandName="Dashboard"
-            routes={routes.slice(0, 3)}
+            routes={routes.slice(0, 4)}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
@@ -241,7 +237,7 @@ onAuthStateChanged(auth, (currUser) => {
       {open && toast()}
       <Routes>
         {/* {console.log(LoggedInUser)} */}
-        {isLoggedIn ? getRoutes(routes.slice(0, 3)) : getRoutes(routes.slice(3))}
+        {isLoggedIn ? getRoutes(routes.slice(0, 4)) : getRoutes(routes.slice(4))}
         {!isLoggedIn ? <>
           <Route path='*' element={<Navigate to='/authentication/sign-in' />} />
           <Route path='/authentication/sign-up' element={<SignUp />} />

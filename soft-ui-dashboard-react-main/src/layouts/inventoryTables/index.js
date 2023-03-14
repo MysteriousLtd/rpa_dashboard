@@ -57,7 +57,7 @@ function VendorName({ name, edit }) {
         <SoftAvatar src={image} alt={name} size="sm" variant="rounded" />
       </SoftBox> */}
         <SoftBox display="flex" flexDirection="column">
-          <SoftTypography variant="subtittle2" fontWeight="medium">
+          <SoftTypography variant="subtitle2" fontWeight="medium">
             {name}
           </SoftTypography>
           {/* <SoftTypography variant="caption" color="secondary">

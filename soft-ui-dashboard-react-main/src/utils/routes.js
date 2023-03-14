@@ -2,24 +2,18 @@
 =========================================================
 * RPA Dashboard React - v4.0.0
 =========================================================
-
 * Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
 * Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
 Coded by www.creative-tim.com
-
  =========================================================
-
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
 /** 
   All of the routes for the RPA Dashboard React are added here,
   You can add a new route, customize the routes and delete the routes here.
-
   Once you add a new route on this file it will be visible automatically on
   the Sidenav.
-
   For adding a new route you can follow the existing routes in the routes array.
   1. The `type` key with the `collapse` value is used for a route.
   2. The `type` key with the `title` value is used for a title inside the Sidenav. 
@@ -53,8 +47,9 @@ import Office from "examples/Icons/Office";
 import Document from "examples/Icons/Document";
 import SpaceShip from "examples/Icons/SpaceShip";
 // import CustomerSupport from "examples/Icons/CustomerSupport";
-// import CreditCard from "examples/Icons/CreditCard";
+import CreditCard from "examples/Icons/CreditCard";
 import Cube from "examples/Icons/Cube";
+import ProductTransfer from "layouts/product-transfer";
 // import EnhancedTable from "examples/CustomTable/Table";
 
 const routes = [
@@ -70,7 +65,7 @@ const routes = [
   {
     type: "collapse",
     name: "Guardian Orders",
-    key: "tables",
+    key: "guardian-order",
     route: "/guardian-order",
     icon: <Office size="12px" />,
     component: <Tables />,
@@ -79,21 +74,21 @@ const routes = [
   {
     type: "collapse",
     name: "Product Inventory",
-    key: "inv-tables",
+    key: "product-inventory",
     route: "/product-inventory",
     icon: <Cube size="12px" />,
     component: <InventoryTable />,
     noCollapse: true,
   },
-  // {
-  //   type: "collapse",
-  //   name: "Billing",
-  //   key: "billing",
-  //   route: "/billing",
-  //   icon: <CreditCard size="12px" />,
-  //   component: <Billing />,
-  //   noCollapse: true,
-  // },
+  {
+    type: "collapse",
+    name: "Product Transfer",
+    key: "product-transfer",
+    route: "/product-transfer",
+    icon: <CreditCard size="12px" />,
+    component: <ProductTransfer />,
+    noCollapse: true,
+  },
   // {
   //   type: "collapse",
   //   name: "Virtual Reality",

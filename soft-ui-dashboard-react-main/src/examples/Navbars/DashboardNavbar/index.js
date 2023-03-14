@@ -45,7 +45,7 @@ import {
   navbarIconButton,
   navbarMobileMenu,
 } from "examples/Navbars/DashboardNavbar/styles";
-import {auth, signOut} from '../../../firebase'
+import {auth, signOut} from '../../../utils/firebase'
 import { useDispatch } from "react-redux";
 
 // RPA Dashboard React context
@@ -72,8 +72,11 @@ import { TFormActions } from "store/TForm";
 import { fetchTableData } from '../../../store/TableSlice'
 import { fetchInventoryData } from "../../../store/inventorySlice";
 import { toastActions } from "store/toastSlice";
+// import { useLocation } from "react-router-dom";
 export function SelectAutoWidth() {
   // const [age, setAge] = useState('');
+  const location= useLocation();
+  console.log(location);
   const dispatch=useDispatch()
   const selected=useSelector(state=> state.tform.select)
   const handleChange = (event) => {
@@ -86,14 +89,15 @@ export function SelectAutoWidth() {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
+      <FormControl sx={{ m: 0, maxWidth: 200 }}>
         <InputLabel id="demo-simple-select-autowidth-label" sx={{fontSize:'15px', }}>Client</InputLabel>
-        <Select
+        {location.pathname !=='/product-transfer' && (<Select
           labelId="demo-simple-select-autowidth-label"
           id="demo-simple-select-autowidth"
           value={selected}
           onChange={handleChange}
-          autoWidth
+          fullWidth
+          // autoWidth
           label="client"
         >
           {/* <MenuItem value="">
@@ -103,7 +107,7 @@ export function SelectAutoWidth() {
           <MenuItem value='Client_Jennifer'>Client_Jennifer</MenuItem>
           <MenuItem value='Client_Jennihome'>Client_Jennihome</MenuItem>
           {/* <MenuItem value={22}>Twenty one and a half</MenuItem> */}
-        </Select>
+        </Select>)}
       </FormControl>
     </div>
   );

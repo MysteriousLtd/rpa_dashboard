@@ -168,7 +168,7 @@ function Table({ columns, rows, edit }) {
           <SoftBox component="thead">
             <TableRow>{renderColumns}</TableRow>
           </SoftBox>
-         {trows!==[{}] && <TableBody>{renderRows}</TableBody>}
+         {trows!==[{}] ?<TableBody>{renderRows}</TableBody>:( <SoftBox textAlign={center}><SoftTypography>No Data Available</SoftTypography></SoftBox>)}
         </MuiTable>
       </TableContainer>
     ),[trows,tcols, edit, select])

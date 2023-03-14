@@ -10,6 +10,7 @@ import TForm from "./TForm";
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk'
 import toastSlice from "./toastSlice";
+import sessionStorage from "redux-persist/es/storage/session";
 // import { middleware } from "stylis";
 // import { curryGetDefaultMiddleware, getDefaultMiddleware } from "@reduxjs/toolkit/dist/getDefaultMiddleware";
 
@@ -21,13 +22,13 @@ import toastSlice from "./toastSlice";
 
 const loginPeristConfig={
     key: 'loginState',
-    storage,
+    storage:sessionStorage,
     whitelist:['isLoggedIn']
 }
 
 const formPeristConfig={
     key: 'tform',
-    storage,
+    storage:sessionStorage,
     whitelist:['select']
 }
 
@@ -38,7 +39,7 @@ const rootReducer = combineReducers({
     tform: persistReducer(formPeristConfig, TForm.reducer),
     toast: persistReducer({
         key: 'toast',
-        storage
+        storage:sessionStorage
     },toastSlice.reducer)
 })
 

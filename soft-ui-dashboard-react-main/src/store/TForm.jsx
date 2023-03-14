@@ -18,7 +18,7 @@ const TForm= createSlice({
         },
         setSelect(state,action){
             state.select=action.payload
-            window.location.reload()
+            // window.location.reload()
             // console.log(pathname)
             // state.reload=false
         },

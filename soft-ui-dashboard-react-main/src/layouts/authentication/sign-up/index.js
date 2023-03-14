@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { loginActions } from "../../../store/LogSlice";
-import {auth,  createUserWithEmailAndPassword , updateProfile} from '../../../firebase'
+import {auth,  createUserWithEmailAndPassword , updateProfile} from '../../../utils/firebase'
 import { toastActions } from "store/toastSlice";
 
 // @mui material components
@@ -50,7 +50,7 @@ function SignUp() {
   const [isCorrPC, setisCorrPC] = useState(null)
   const handleSetAgremment = () => setAgremment(!agreement);
   const PASSCODE= useSelector(state => state.loginState.passcode)
-  const user=useSelector(state => state.loginState.user)
+  // const user=useSelector(state => state.loginState.user)
   const signUp=(e) => {
     if(passcode===PASSCODE){
        createUserWithEmailAndPassword(auth, email, password)
@@ -117,7 +117,7 @@ function SignUp() {
                 variant="button"
                 fontWeight="regular"
                 onClick={handleSetAgremment}
-                sx={{ cursor: "poiner", userSelect: "none" }}
+                sx={{ cursor: "pointer", userSelect: "none" }}
               >
                 &nbsp;&nbsp;I agree the&nbsp;
               </SoftTypography>

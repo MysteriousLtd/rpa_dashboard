@@ -1,4 +1,7 @@
-const TableData = [
+const TableData = {
+    title:'Products Transfer',
+    cols: ['Source', 'Destination','ProductID', 'ProductName', 'Status', 'Time'],
+data:[
     {
         id: 1,
         col1: "value 1",
@@ -24,6 +27,6 @@ const TableData = [
         col5: "value 5",
     },
 
-]
+]}
 
 export default TableData
